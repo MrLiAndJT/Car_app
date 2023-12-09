@@ -1,13 +1,14 @@
-<script setup lang="ts">
-import { onLaunch, onShow, onHide } from "@dcloudio/uni-app";
-onLaunch(() => {
-  console.log("App Launch");
-});
-onShow(() => {
-  console.log("App Show");
-});
-onHide(() => {
-  console.log("App Hide");
-});
-</script>
-<style></style>
+<template>
+</template>
+<script  lang="ts" setup></script>
+<style>
+	/* #ifdef APP-PLUS-NVUE */
+	@import './tmui/scss/nvue.css';
+	/* #endif */
+	/* #ifndef APP-PLUS-NVUE */
+	@import './tmui/scss/noNvue.css';
+	/* #endif */
+
+
+
+</style>
