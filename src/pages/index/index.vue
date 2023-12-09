@@ -1,24 +1,39 @@
 <template>
-  <view>
-    <view class="header" :style="{ height: winSize.navigatorBar + 'px' }">
-      header
-    </view>
-  </view>
+  <tm-app>
+    <tm-navbar
+      title=""
+      color="primary"
+      linearDeep="accent"
+      hideHome
+      :padding="[20, 0]"
+      :leftWidth="700"
+    >
+      <template v-slot:left>
+        <view class="header">
+          <text class="name">装车大师</text>
+          <text class="intro">一站式汽车电子安装平台</text>
+        </view>
+      </template>
+    </tm-navbar>
+  </tm-app>
 </template>
 
 <script lang="ts" setup>
-import { useWindowInfo } from "@/tmui/tool/useFun/useWindowInfo";
-const winSize = useWindowInfo();
-// 打印，注意它的尺寸可能是动态变化的。因为是在onMounted中取得，窗口尺寸变化，也可能导致变化。
-console.log("winSize: ", winSize);
-const menuButton = uni.getMenuButtonBoundingClientRect();
-console.log("menuButton: ", menuButton);
+console.log("高度: ", uni.getSystemInfoSync().statusBarHeight);
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
 .header {
-  background-color: #abcdef;
   display: flex;
   align-items: center;
+  .name {
+    font-size: 32rpx;
+    margin-right: 20rpx;
+    font-style: italic;
+    font-weight: 600;
+  }
+  .intro {
+    font-size: 24rpx;
+  }
 }
 </style>
