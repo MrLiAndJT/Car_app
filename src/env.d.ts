@@ -5,7 +5,3 @@ declare module "*.vue" {
   const component: DefineComponent<{}, {}, any>;
   export default component;
 }
-
-declare module "@/tmui";
-
-declare module "uni";
