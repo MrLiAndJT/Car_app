@@ -1,5 +1,5 @@
 <template>
-  <tm-app>
+  <tm-app class="app-container">
     <tm-navbar
       title=""
       color="primary"
@@ -36,6 +36,14 @@
           class="img"
         />
       </view>
+    </view>
+    <view class="content">
+      <tm-roll-notice
+        :width="650"
+        :list="['恭喜xxxx用户下单成功', '热烈庆祝xxxx中奖免单']"
+        :margin="[0, 0]"
+        class="notice"
+      ></tm-roll-notice>
     </view>
   </tm-app>
 </template>
@@ -88,5 +96,14 @@ const searchValue = ref("");
       bottom: -60rpx;
     }
   }
+}
+.content {
+  position: relative;
+  z-index: 9;
+  margin-top: -35rpx;
+  border-top-left-radius: 40rpx;
+  border-top-right-radius: 40rpx;
+  background-color: #fff;
+  padding: 40rpx;
 }
 </style>
