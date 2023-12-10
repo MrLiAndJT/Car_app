@@ -1,5 +1,5 @@
 <template>
-  <tm-app>
+  <tm-app color="#fff">
     <tm-sheet
       :padding="[0, 0]"
       :margin="[32, 0, 32, 0]"
