@@ -1,19 +1,23 @@
 <template>
   <tm-app>
-    <tm-input
-      v-model="searchValue"
-      prefix="tmicon-search"
-      showClear
-      placeholder="搜索您想查找的订单"
-      placeholderStyle="font-size: 24rpx"
-      :height="80"
-    />
-    <tm-segtab
-      :width="750"
-      :list="tabsTitle"
-      :height="100"
-      defaultValue="1"
-    ></tm-segtab>
+    <tm-sheet :margin="[0, 0]" :padding="[20, 20]" color="#fff">
+      <tm-input
+        v-model="searchValue"
+        prefix="tmicon-search"
+        showClear
+        placeholder="搜索您想查找的订单"
+        placeholderStyle="font-size: 24rpx"
+        :height="80"
+      />
+      <tm-segtab
+        class="segtab"
+        :width="710"
+        :list="tabsTitle"
+        :height="100"
+        defaultValue="1"
+        color="theme-yellow"
+      ></tm-segtab>
+    </tm-sheet>
   </tm-app>
 </template>
 
@@ -32,4 +36,8 @@ const tabsTitle = ref([
 ]);
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.segtab {
+  margin-top: 50rpx;
+}
+</style>
