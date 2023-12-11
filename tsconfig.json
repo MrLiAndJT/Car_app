@@ -22,7 +22,6 @@
     "./src/*.nvue",
     "./src/**/*.nvue",
     "./src/*.ts",
-    "./src/*.d.ts",
     "./src/**/*.ts",
     "types/**/*"
   ]

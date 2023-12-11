@@ -84,9 +84,9 @@ const login = () => {
   //   .then((res) => {
   //     console.log("用户信息: ", res);
   //   });
-  // uni.login().then((res) => {
-  //   console.log("登陆: ", res);
-  // });
+  uni.login().then((res) => {
+    console.log("登陆: ", res);
+  });
 };
 </script>
 
