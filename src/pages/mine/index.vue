@@ -38,11 +38,11 @@
             outlined
             size="normal"
             label="查看明细"
-            fontSize="24"
+            :fontSize="24"
             :width="140"
             :height="60"
             fontColor="#333"
-            round="20"
+            :round="20"
           ></tm-button>
         </view>
       </view>
@@ -67,12 +67,28 @@
         title="我是师傅"
         rightText="查看入驻信息"
         :round="[0, 0, 4, 4]"
+        @click="login"
       />
     </tm-sheet>
   </tm-app>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+const login = () => {
+  console.log("env: ", import.meta.env.MODE);
+  console.log("url: ", import.meta.env);
+  // uni
+  //   .getUserProfile({
+  //     desc: "用于完善会员资料", // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
+  //   })
+  //   .then((res) => {
+  //     console.log("用户信息: ", res);
+  //   });
+  // uni.login().then((res) => {
+  //   console.log("登陆: ", res);
+  // });
+};
+</script>
 
 <style lang="scss" scoped>
 .mine-wrap {
