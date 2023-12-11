@@ -1,5 +1,4 @@
 import { defineStore } from "pinia";
-// import * as Pinia from "pinia";
 
 type useUserStoreState = {
   loginData: {
@@ -16,5 +15,10 @@ export const useUserStore = defineStore("user", {
         token: "token-123456abc",
       },
     };
+  },
+  actions: {
+    changeUsername(name: string) {
+      this.loginData.username = name;
+    },
   },
 });
