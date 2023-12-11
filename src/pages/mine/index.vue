@@ -76,7 +76,7 @@
 <script lang="ts" setup>
 const login = () => {
   console.log("env: ", import.meta.env.MODE);
-  console.log("url: ", import.meta.env);
+  console.log("url: ", import.meta.env.VITE_BASE_URL);
   // uni
   //   .getUserProfile({
   //     desc: "用于完善会员资料", // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写

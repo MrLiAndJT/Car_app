@@ -12,7 +12,8 @@
     "lib": ["esnext", "dom"],
     "types": ["@dcloudio/types"],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "/#/*": ["./types/*"]
     }
   },
   "include": [
@@ -22,6 +23,7 @@
     "./src/**/*.nvue",
     "./src/*.ts",
     "./src/*.d.ts",
-    "./src/**/*.ts"
+    "./src/**/*.ts",
+    "types/**/*"
   ]
 }
