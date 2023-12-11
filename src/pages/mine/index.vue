@@ -74,16 +74,13 @@
 </template>
 
 <script lang="ts" setup>
+import { useUserStore } from "@/store/user";
+
+const userStore = useUserStore();
+
+console.log("登陆状态: ", userStore.$state);
+
 const login = () => {
-  console.log("env: ", import.meta.env.MODE);
-  console.log("url: ", import.meta.env.VITE_BASE_URL);
-  // uni
-  //   .getUserProfile({
-  //     desc: "用于完善会员资料", // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
-  //   })
-  //   .then((res) => {
-  //     console.log("用户信息: ", res);
-  //   });
   uni.login().then((res) => {
     console.log("登陆: ", res);
   });
@@ -163,3 +160,4 @@ const login = () => {
   }
 }
 </style>
+@/store/user
