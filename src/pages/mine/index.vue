@@ -74,7 +74,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useUserStore } from "@/store/user";
+import { useUserStore } from "@/store/modules/user";
 
 const userStore = useUserStore();
 
@@ -160,4 +160,4 @@ const login = () => {
   }
 }
 </style>
-@/store/user
+@/store/user @/store/modules/user
