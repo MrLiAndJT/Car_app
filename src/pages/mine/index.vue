@@ -47,38 +47,57 @@
         </view>
       </view>
     </view>
+    <template v-if="false">
+      <tm-sheet :margin="[20, 100, 20, 20]" :round="[4, 4, 0, 0]">
+        <tm-cell
+          :margin="[0, 0]"
+          :titleFontSize="30"
+          title="我的评价"
+          :round="[4, 4, 0, 0]"
+        />
+        <tm-cell :margin="[0, 0]" :titleFontSize="30" title="我的保修卡" />
+        <tm-cell :margin="[0, 0]" :titleFontSize="30" title="意见反馈" />
+        <tm-cell :margin="[0, 0]" :titleFontSize="30" title="联系客服" />
+        <tm-cell :margin="[0, 0]" :titleFontSize="30" title="关于装车大师" />
+        <tm-cell :margin="[0, 0]" :titleFontSize="30" title="服务协议" />
+      </tm-sheet>
+      <tm-sheet :margin="[20]" :padding="[0]" :round="[0, 0, 4, 4]">
+        <tm-cell
+          :margin="[0, 0]"
+          :titleFontSize="30"
+          title="我是师傅"
+          rightText="查看入驻信息"
+          :round="[0, 0, 4, 4]"
+          @click="login"
+        />
+      </tm-sheet>
+    </template>
+
     <tm-sheet :margin="[20, 100, 20, 20]" :round="[4, 4, 0, 0]">
-      <tm-cell
-        :margin="[0, 0]"
-        :titleFontSize="30"
-        title="我的评价"
-        :round="[4, 4, 0, 0]"
-      />
-      <tm-cell :margin="[0, 0]" :titleFontSize="30" title="我的保修卡" />
-      <tm-cell :margin="[0, 0]" :titleFontSize="30" title="意见反馈" />
-      <tm-cell :margin="[0, 0]" :titleFontSize="30" title="联系客服" />
-      <tm-cell :margin="[0, 0]" :titleFontSize="30" title="关于装车大师" />
-      <tm-cell :margin="[0, 0]" :titleFontSize="30" title="服务协议" />
-    </tm-sheet>
-    <tm-sheet :margin="[20]" :padding="[0]" :round="[0, 0, 4, 4]">
-      <tm-cell
-        :margin="[0, 0]"
-        :titleFontSize="30"
-        title="我是师傅"
-        rightText="查看入驻信息"
-        :round="[0, 0, 4, 4]"
-        @click="login"
-      />
+      <view> 用户名: {{ userStore.$state.loginData.username }} </view>
+      <tm-input
+        v-model="searchValue"
+        :searchWidth="120"
+        @search="save"
+        prefix="tmicon-search"
+        searchLabel="搜索"
+      ></tm-input>
     </tm-sheet>
   </tm-app>
 </template>
 
 <script lang="ts" setup>
 import { useUserStore } from "@/store/modules/user";
+import { ref } from "vue";
 
 const userStore = useUserStore();
+const searchValue = ref("");
 
 console.log("登陆状态: ", userStore.$state);
+
+const save = () => {
+  userStore.changeUsername(searchValue.value);
+};
 
 const login = () => {
   uni.login().then((res) => {
