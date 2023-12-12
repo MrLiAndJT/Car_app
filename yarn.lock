@@ -3370,6 +3370,11 @@ pify@^2.3.0:
   resolved "https://registry.npmmirror.com/pify/-/pify-2.3.0.tgz#ed141a6ac043a849ea588498e7dca8b15330e90c"
   integrity sha512-udgsAY+fTnvv7kI7aaxbqwWNb0AHiB0qBO89PZKPkoTmGOgdbrHDKD+0B2X4uTfJ/FT1R09r9gTsjUjNJotuog==
 
+pinia-plugin-persistedstate@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.npmmirror.com/pinia-plugin-persistedstate/-/pinia-plugin-persistedstate-3.2.0.tgz#9932ca2ae88aa6c0d6763bebc6447d7bd1f097d0"
+  integrity sha512-tZbNGf2vjAQcIm7alK40sE51Qu/m9oWr+rEgNm/2AWr1huFxj72CjvpQcIQzMknDBJEkQznCLAGtJTIcLKrKdw==
+
 pinia@2.0.33:
   version "2.0.33"
   resolved "https://registry.npmmirror.com/pinia/-/pinia-2.0.33.tgz#b70065be697874d5824e9792f59bd5d87ddb5e7d"

@@ -21,4 +21,15 @@ export const useUserStore = defineStore("user", {
       this.loginData.username = name;
     },
   },
+  persist: {
+    key: "user",
+    storage: {
+      getItem(key) {
+        return uni.getStorageSync(key);
+      },
+      setItem(key, val) {
+        uni.setStorageSync(key, val);
+      },
+    },
+  },
 });
