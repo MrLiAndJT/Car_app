@@ -89,6 +89,7 @@
 <script lang="ts" setup>
 import { useUserStore } from "@/store/modules/user";
 import { ref } from "vue";
+import System from "@/api/system";
 
 const userStore = useUserStore();
 const searchValue = ref("");
@@ -100,9 +101,15 @@ const save = () => {
 };
 
 const login = () => {
-  uni.login().then((res) => {
-    console.log("登陆: ", res);
-  });
+  // System.login({
+  //   username: "测试用户1",
+  //   password: "123456",
+  // }).then(({ data }) => {
+  //   console.log("data: ", data.token);
+  // });
+  // uni.login().then((res) => {
+  //   console.log("登陆: ", res);
+  // });
 };
 </script>
 
