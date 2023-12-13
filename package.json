@@ -46,7 +46,6 @@
         "@dcloudio/uni-mp-toutiao": "3.0.0-3090520231028001",
         "@dcloudio/uni-mp-weixin": "3.0.0-3090520231028001",
         "@dcloudio/uni-quickapp-webview": "3.0.0-3090520231028001",
-        "axios": "^1.6.2",
         "echarts": "5.4.2",
         "pinia": "2.0.33",
         "pinia-plugin-persistedstate": "^3.2.0",

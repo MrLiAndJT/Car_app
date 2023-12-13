@@ -78,7 +78,7 @@
       <tm-input
         v-model="searchValue"
         :searchWidth="120"
-        @search="save"
+        @search="login"
         prefix="tmicon-search"
         searchLabel="搜索"
       ></tm-input>
@@ -94,22 +94,20 @@ import System from "@/api/system";
 const userStore = useUserStore();
 const searchValue = ref("");
 
-console.log("登陆状态: ", userStore.$state);
-
-const save = () => {
-  userStore.changeUsername(searchValue.value);
-};
-
 const login = () => {
-  // System.login({
-  //   username: "测试用户1",
-  //   password: "123456",
-  // }).then(({ data }) => {
-  //   console.log("data: ", data.token);
-  // });
-  // uni.login().then((res) => {
-  //   console.log("登陆: ", res);
-  // });
+  System.login({
+    username: "admin",
+    password: "admin123",
+    remember: true,
+    code: "",
+    uuid: "",
+  })
+    .then((data) => {
+      console.log("yes: ", data);
+    })
+    .catch((err) => {
+      console.log("哦豁: ", err);
+    });
 };
 </script>
 
