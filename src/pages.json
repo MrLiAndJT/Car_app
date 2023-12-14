@@ -34,6 +34,13 @@
         "enablePullDownRefresh": false,
         "navigationBarBackgroundColor": "#eee353"
       }
+    },
+    {
+      "path": "pages/createOrder/index",
+      "style": {
+        "navigationBarTitleText": "下单",
+        "enablePullDownRefresh": false
+      }
     }
   ],
   "globalStyle": {

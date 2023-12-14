@@ -71,11 +71,11 @@
         </view>
       </view>
       <tm-image
-        preview
         :width="670"
         :height="277"
         :src="dispatch_order"
         class="img"
+        @click="navTo('/pages/createOrder/index')"
       />
       <view class="order-process-wrap">
         <view class="tit">下单流程</view>
@@ -117,7 +117,14 @@
 import { ref } from "vue";
 import steering_wheel from "@/static/steering_wheel.png";
 import dispatch_order from "@/static/dispatch_order.jpg";
+
 const searchValue = ref("");
+
+const navTo = (url: string) => {
+  uni.navigateTo({
+    url,
+  });
+};
 </script>
 
 <style lang="scss" scoped>
