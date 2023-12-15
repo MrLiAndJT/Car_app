@@ -1,15 +1,18 @@
 <template>
   <tm-app>
-    <tm-sheet :padding="[0, 0]" :margin="[20]" :round="[4]">
-      <tm-form
-        layout="vertical"
-        @submit="confirm"
-        ref="form"
-        :label-width="150"
-        :padding="[0, 0]"
-        :margin="[0, 0]"
-        :border="false"
-      >
+    <tm-form
+      v-model="formData"
+      layout="vertical"
+      @submit="confirm"
+      ref="form"
+      :label-width="150"
+      :padding="[0, 0]"
+      :margin="[20]"
+      :border="false"
+    >
+      <tm-sheet :padding="[0, 0]" :margin="[20]" :round="[4]">
+        <tm-text :font-size="24" _class="text-weight-b" label="车主信息" />
+        <tm-divider />
         <tm-form-item required label="车主姓名" field="name" :errHeight="15">
           <tm-input v-model="formData.name"></tm-input>
         </tm-form-item>
@@ -23,7 +26,7 @@
             :readonly="true"
             :adjustPosition="false"
             :disabled="true"
-          ></tm-input>
+          />
         </tm-form-item>
         <tm-form-item
           required
@@ -35,10 +38,10 @@
             v-model="formData.addressDesc"
             type="textarea"
             :height="150"
-          ></tm-input>
+          />
         </tm-form-item>
-      </tm-form>
-    </tm-sheet>
+      </tm-sheet>
+    </tm-form>
 
     <tm-city-picker
       selectedModel="name"
@@ -50,15 +53,13 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive } from "vue";
-import { watch } from "vue";
-import { ref } from "vue";
+import { reactive, ref, watch } from "vue";
 
 const dateStr = ref("");
 const citydate = ref([]);
 const showdate = ref(false);
 
-const formData = reactive({
+const formData = ref({
   name: "",
   phone: "",
   address: "",
@@ -72,7 +73,7 @@ const confirm = () => {
 };
 
 watch(citydate, (nVal) => {
-  formData.address = nVal.join("-");
+  formData.value.address = nVal.join("-");
 });
 </script>
 
