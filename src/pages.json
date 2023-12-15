@@ -41,6 +41,13 @@
         "navigationBarTitleText": "下单",
         "enablePullDownRefresh": false
       }
+    },
+    {
+      "path": "pages/selectCar/index",
+      "style": {
+        "navigationBarTitleText": "车辆选择",
+        "enablePullDownRefresh": false
+      }
     }
   ],
   "globalStyle": {

@@ -57,7 +57,13 @@
       >
         <view class="add-card-wrap">
           <tm-text :font-size="24" _class="text-weight-b" label="车辆信息" />
-          <tm-button size="small" :margin="[0]">添加车辆</tm-button>
+          <tm-button
+            size="small"
+            :margin="[0]"
+            @click="navTo('/pages/selectCar/index')"
+          >
+            添加车辆
+          </tm-button>
         </view>
 
         <tm-divider />
@@ -99,13 +105,19 @@ const formData = ref({
   car: "",
 });
 
-const confirm = () => {
-  console.log("提交表单...");
-};
-
 watch(citydate, (nVal) => {
   formData.value.address = nVal.join("-");
 });
+
+const navTo = (url: string) => {
+  uni.navigateTo({
+    url,
+  });
+};
+
+const confirm = () => {
+  console.log("提交表单...");
+};
 </script>
 
 <style lang="scss" scoped>
