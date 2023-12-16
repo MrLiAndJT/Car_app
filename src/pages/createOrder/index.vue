@@ -28,12 +28,20 @@
         <tm-form-item required label="地址" field="address" :errHeight="15">
           <tm-input
             v-model="formData.address"
-            @click="showdate = true"
             :readonly="true"
             :adjustPosition="false"
             :disabled="true"
             placeholder="请选择地址"
-          />
+          >
+            <!-- @click.self="showdate = true" -->
+            <template #right>
+              <tm-icon
+                :font-size="30"
+                name="tmicon-position-fill"
+                @click.stop="selectLocation"
+              />
+            </template>
+          </tm-input>
         </tm-form-item>
         <tm-form-item
           required
@@ -220,6 +228,12 @@ const carStoreConfig = reactive({
     },
   ],
 });
+
+const selectLocation = () => {
+  uni.chooseLocation().then((res) => {
+    console.log("位置选择: ", res);
+  });
+};
 
 const confirm = () => {
   console.log("提交表单...");
