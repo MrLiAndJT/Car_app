@@ -18,11 +18,14 @@
         color="theme-yellow"
       ></tm-segtab>
     </tm-sheet>
+
+    <OrderCard />
   </tm-app>
 </template>
 
 <script lang="ts" setup>
 import { ref } from "vue";
+import OrderCard from "./components/OrderCard.vue";
 
 const searchValue = ref("");
 
