@@ -78,6 +78,37 @@
           />
         </tm-sheet>
       </tm-sheet>
+
+      <tm-sheet :padding="[0, 0]" :margin="[20]" :round="[4]">
+        <tm-text :font-size="24" _class="text-weight-b" label="其它信息" />
+        <tm-divider />
+        <tm-form-item field="addressDesc" :errHeight="15">
+          <tm-input
+            v-model="formData.addressDesc"
+            type="textarea"
+            :height="150"
+            placeholder="请输入备注"
+          />
+        </tm-form-item>
+        <tm-form-item field="agree" :errHeight="15">
+          <view class="agree-wrap">
+            <tm-checkbox :margin="[0]" :padding="[0]" v-model="formData.agree">
+              <template v-slot:default="{ checked }">
+                <view class="flex flex-row agree">
+                  <tm-text label="我已经阅读并同意" />
+                </view>
+              </template>
+            </tm-checkbox>
+            <view>
+              <tm-text
+                color="primary"
+                label="《合作协议》"
+                @click="showAgree = true"
+              />
+            </view>
+          </view>
+        </tm-form-item>
+      </tm-sheet>
     </tm-form>
 
     <view class="price-container">
@@ -91,6 +122,15 @@
       v-model="citydate"
       v-model:model-str="dateStr"
     />
+
+    <tm-modal
+      title="信息框"
+      content="这是一分关于汽车维修的xxxxx协议, 一下内容xxxxxxx"
+      okText="同意"
+      v-model:show="showAgree"
+      @ok="formData.agree = true"
+      @cancel="formData.agree = false"
+    />
   </tm-app>
 </template>
 
@@ -101,6 +141,8 @@ const dateStr = ref("");
 const citydate = ref([]);
 const showdate = ref(false);
 
+const showAgree = ref(false);
+
 const formData = ref({
   name: "",
   phone: "",
@@ -109,6 +151,7 @@ const formData = ref({
   proExit: true,
   desc: "",
   car: "",
+  agree: false,
 });
 
 watch(citydate, (nVal) => {
@@ -133,6 +176,13 @@ const confirm = () => {
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+  .agree-wrap {
+    display: flex;
+    align-items: center;
+    .agree {
+      margin-left: 10rpx;
+    }
   }
 }
 
