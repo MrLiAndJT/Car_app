@@ -1,6 +1,7 @@
 <template>
   <tm-app>
     <tm-form
+      class="form-wrap"
       v-model="formData"
       layout="vertical"
       @submit="confirm"
@@ -79,6 +80,11 @@
       </tm-sheet>
     </tm-form>
 
+    <view class="price-container">
+      <view class="con-left"> 预估服务费: ¥0.00 </view>
+      <view class="submit">发布订单</view>
+    </view>
+
     <tm-city-picker
       selectedModel="name"
       v-model:show="showdate"
@@ -121,9 +127,39 @@ const confirm = () => {
 </script>
 
 <style lang="scss" scoped>
-.add-card-wrap {
+.form-wrap {
+  margin-bottom: 120rpx;
+  .add-card-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.price-container {
+  height: 120rpx;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: #000;
+  color: #fff;
+  .con-left {
+    flex: 1;
+    margin-left: 20rpx;
+  }
+  .submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0 20rpx;
+    background-color: $uni-color-primary;
+    color: #333;
+  }
 }
 </style>
