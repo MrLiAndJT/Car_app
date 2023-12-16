@@ -26,22 +26,20 @@
           />
         </tm-form-item>
         <tm-form-item required label="地址" field="address" :errHeight="15">
-          <tm-input
-            v-model="formData.address"
-            :readonly="true"
-            :adjustPosition="false"
-            :disabled="true"
-            placeholder="请选择地址"
-            @click="showdate = true"
-          >
-            <template #right>
-              <tm-icon
-                :font-size="30"
-                name="tmicon-position-fill"
-                @tap.native.stop="selectLocation"
-              />
-            </template>
-          </tm-input>
+          <view class="location">
+            <tm-input
+              class="search"
+              v-model="formData.address"
+              :readonly="true"
+              :adjustPosition="false"
+              :disabled="true"
+              placeholder="请选择地址"
+              @click="showdate = true"
+            />
+            <tm-button type="primary" size="small" @click="selectLocation">
+              地图
+            </tm-button>
+          </view>
         </tm-form-item>
         <tm-form-item
           required
@@ -233,42 +231,17 @@ const carStoreConfig = reactive({
 });
 
 // 把位置拆分成数组
-const splitAddress = (address: string): string[] => {
-  const matches = address.match(
-    /(.*?[省市区])(.*?[省市区])?(.*?[省市区])?(.*)/
-  );
-
-  if (matches) {
-    const [, province, city, district, detail] = matches;
-    const parts = [province, city, district, detail].filter(Boolean);
-
-    // 保留每一部分的前面的文字
-    const result: string[] = [];
-    let prefix: string = "";
-    for (const part of parts) {
-      if (part) {
-        prefix += part.replace(/.*?([省市区])$/, "");
-        result.push(prefix + part);
-      }
-    }
-
-    return result;
-  }
-
-  return [address];
-};
+/*自动拆分省市区*/
+function splitAddress(address: string) {
+  var reg = /.+?(省|市|自治区|自治州|县|区)/g;
+  return address.match(reg) || [];
+}
 
 const selectLocation = () => {
   uni.chooseLocation().then((res) => {
     const addressArr = splitAddress(res.address);
-    const len = addressArr.length;
-    if (!len) return;
-    if (["市", "区", "省"].includes(addressArr[len - 1])) {
-      formData.value.address = addressArr.join("-");
-    } else {
-      formData.value.address = addressArr.slice(0, len - 1).join("-");
-      formData.value.addressDesc = addressArr[len - 1];
-    }
+    formData.value.address = addressArr.join("-");
+    formData.value.addressDesc = res.address.replace(addressArr.join(""), "");
   });
 };
 
@@ -297,6 +270,13 @@ const confirm = () => {
     align-items: center;
     .agree {
       margin-left: 10rpx;
+    }
+  }
+  .location {
+    display: flex;
+    align-items: center;
+    .search {
+      flex: 1;
     }
   }
 }
