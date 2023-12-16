@@ -32,13 +32,13 @@
             :adjustPosition="false"
             :disabled="true"
             placeholder="请选择地址"
+            @click="showdate = true"
           >
-            <!-- @click.self="showdate = true" -->
             <template #right>
               <tm-icon
                 :font-size="30"
                 name="tmicon-position-fill"
-                @click.stop="selectLocation"
+                @tap.native.stop="selectLocation"
               />
             </template>
           </tm-input>
@@ -96,9 +96,9 @@
       <tm-sheet :padding="[0, 0]" :margin="[20]" :round="[4]">
         <tm-text :font-size="24" _class="text-weight-b" label="其它信息" />
         <tm-divider />
-        <tm-form-item field="addressDesc" :errHeight="15">
+        <tm-form-item field="desc" :errHeight="15">
           <tm-input
-            v-model="formData.addressDesc"
+            v-model="formData.desc"
             type="textarea"
             :height="150"
             placeholder="请输入备注"
@@ -156,18 +156,20 @@
             <view class="padding"> 距离 </view>
           </view>
         </view>
-        <div
+        <view
+          v-if="carStoreConfig.tableData.length"
           class="conten-item"
           v-for="item in carStoreConfig.tableData"
           :key="item.id"
         >
-          <div class="left">
+          <view class="left">
             <view class="padding"> {{ item.name }} </view>
-          </div>
-          <div class="right">
+          </view>
+          <view class="right">
             <view class="padding"> {{ item.distance }} </view>
-          </div>
-        </div>
+          </view>
+        </view>
+        <view class="null" v-else>附近暂无门店</view>
       </view>
     </tm-overlay>
   </tm-app>
@@ -195,6 +197,7 @@ const formData = ref({
 
 watch(citydate, (nVal) => {
   formData.value.address = nVal.join("-");
+  formData.value.addressDesc = "";
 });
 
 const navTo = (url: string) => {
@@ -229,9 +232,43 @@ const carStoreConfig = reactive({
   ],
 });
 
+// 把位置拆分成数组
+const splitAddress = (address: string): string[] => {
+  const matches = address.match(
+    /(.*?[省市区])(.*?[省市区])?(.*?[省市区])?(.*)/
+  );
+
+  if (matches) {
+    const [, province, city, district, detail] = matches;
+    const parts = [province, city, district, detail].filter(Boolean);
+
+    // 保留每一部分的前面的文字
+    const result: string[] = [];
+    let prefix: string = "";
+    for (const part of parts) {
+      if (part) {
+        prefix += part.replace(/.*?([省市区])$/, "");
+        result.push(prefix + part);
+      }
+    }
+
+    return result;
+  }
+
+  return [address];
+};
+
 const selectLocation = () => {
   uni.chooseLocation().then((res) => {
-    console.log("位置选择: ", res);
+    const addressArr = splitAddress(res.address);
+    const len = addressArr.length;
+    if (!len) return;
+    if (["市", "区", "省"].includes(addressArr[len - 1])) {
+      formData.value.address = addressArr.join("-");
+    } else {
+      formData.value.address = addressArr.slice(0, len - 1).join("-");
+      formData.value.addressDesc = addressArr[len - 1];
+    }
   });
 };
 
@@ -322,6 +359,15 @@ const confirm = () => {
     border-top: 1px solid #f1f1f1;
     color: #666;
     font-size: 26rpx;
+  }
+  .null {
+    height: 150rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    background-color: #fff;
+    font-size: 28rpx;
   }
 }
 </style>
