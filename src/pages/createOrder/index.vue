@@ -50,6 +50,12 @@
         </tm-form-item>
       </tm-sheet>
 
+      <view class="nearby-shops">
+        <tm-text color="primary" @click="carStoreConfig.show = true"
+          >查看附近门店</tm-text
+        >
+      </view>
+
       <tm-sheet
         :padding="[20]"
         :margin="[0, 20]"
@@ -131,6 +137,31 @@
       @ok="formData.agree = true"
       @cancel="formData.agree = false"
     />
+
+    <tm-overlay v-model:show="carStoreConfig.show" contentAnimation>
+      <view class="table">
+        <view class="header">
+          <view class="header-item left">
+            <view class="padding"> 合作门店 </view>
+          </view>
+          <view class="header-item right">
+            <view class="padding"> 距离 </view>
+          </view>
+        </view>
+        <div
+          class="conten-item"
+          v-for="item in carStoreConfig.tableData"
+          :key="item.id"
+        >
+          <div class="left">
+            <view class="padding"> {{ item.name }} </view>
+          </div>
+          <div class="right">
+            <view class="padding"> {{ item.distance }} </view>
+          </div>
+        </div>
+      </view>
+    </tm-overlay>
   </tm-app>
 </template>
 
@@ -164,6 +195,32 @@ const navTo = (url: string) => {
   });
 };
 
+const carStoreConfig = reactive({
+  show: false,
+  tableData: [
+    {
+      id: 1,
+      name: "广州1号店",
+      distance: "1.3km",
+    },
+    {
+      id: 2,
+      name: "海珠合作门店",
+      distance: "5.6km",
+    },
+    {
+      id: 3,
+      name: "番禺大学城xx门店",
+      distance: "4.8km",
+    },
+    {
+      id: 4,
+      name: "番禺区总店铺",
+      distance: "3.7km",
+    },
+  ],
+});
+
 const confirm = () => {
   console.log("提交表单...");
 };
@@ -176,6 +233,13 @@ const confirm = () => {
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+  .nearby-shops {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-top: 20rpx;
+    background-color: rgba(245, 245, 245, 1);
   }
   .agree-wrap {
     display: flex;
@@ -210,6 +274,40 @@ const confirm = () => {
     padding: 0 20rpx;
     background-color: $uni-color-primary;
     color: #333;
+  }
+}
+
+.table {
+  width: 700rpx;
+  border-radius: 10rpx;
+  overflow: hidden;
+  .left {
+    width: 75%;
+    text-align: center;
+    border-right: 1px solid #f1f1f1;
+  }
+  .right {
+    width: 25%;
+    text-align: center;
+  }
+  .padding {
+    padding: 20rpx 0;
+  }
+  .header {
+    background-color: #f1f1f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28rpx;
+    color: #333;
+  }
+  .conten-item {
+    width: 100%;
+    display: flex;
+    background-color: #fff;
+    border-top: 1px solid #f1f1f1;
+    color: #666;
+    font-size: 26rpx;
   }
 }
 </style>
