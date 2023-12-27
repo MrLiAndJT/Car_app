@@ -37,6 +37,10 @@ class requestData<T> {
   beforeSend() {
     // 设置token
     this.token = "赋值token";
+    uni.showLoading({
+      title: "加载中...",
+      mask: true,
+    });
     // 设置header
     // this.options.header = {
     //   // "Content-Type": "application/json;charset=utf-8",
@@ -48,6 +52,7 @@ class requestData<T> {
     data: void | UniApp.RequestSuccessCallbackResult
   ): Promise<ResultType<T>> {
     console.log("后端返回的data: ", data);
+    uni.hideLoading();
     if (!data) {
       // 请求失败
       console.log("未知错误");
