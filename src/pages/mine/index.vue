@@ -13,7 +13,9 @@
         </view>
         <view class="con-right">
           <view class="user-name">
-            <text class="name">登陆/注册</text>
+            <text class="name">
+              {{ userStore.$state.loginData.username || "登陆/注册" }}
+            </text>
             <text class="iconfont icon-jinrujiantou"></text>
           </view>
           <view class="phone-wrap" v-if="userStore.$state.loginData.token">
@@ -72,7 +74,12 @@
       />
     </tm-sheet>
 
-    <tm-sheet :margin="[20]" :padding="[0]" :round="[0, 0, 4, 4]">
+    <tm-sheet
+      v-if="userStore.$state.loginData.token"
+      :margin="[20]"
+      :padding="[0]"
+      :round="[0, 0, 4, 4]"
+    >
       <tm-cell
         :margin="[0, 0]"
         :titleFontSize="30"
