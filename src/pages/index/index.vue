@@ -75,7 +75,7 @@
         :height="277"
         :src="dispatch_order"
         class="img"
-        @click="navTo('/pages/createOrder/index')"
+        @click="createOrder"
       />
       <view class="order-process-wrap">
         <view class="tit">下单流程</view>
@@ -117,13 +117,28 @@
 import { ref } from "vue";
 import steering_wheel from "@/static/steering_wheel.png";
 import dispatch_order from "@/static/dispatch_order.jpg";
+import { useUserStore } from "@/store/modules/user";
+
+// 用户 store
+const userStore = useUserStore();
 
 const searchValue = ref("");
 
+// 去到某个页面
 const navTo = (url: string) => {
   uni.navigateTo({
     url,
   });
+};
+
+const createOrder = () => {
+  if (!userStore.$state.loginData.token) {
+    // 未登录，去到登陆页面
+    navTo("/pages/login/index");
+  } else {
+    // 已登陆，创建订单页面
+    navTo("/pages/createOrder/index");
+  }
 };
 </script>
 
