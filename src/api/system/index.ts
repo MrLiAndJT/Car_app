@@ -2,10 +2,10 @@ import request from "@/utils/request";
 import type { LoginIn, LoginOut } from "./system";
 
 class System {
-  static login(data: LoginIn) {
+  static login(data: { code: string }) {
     return request<LoginOut>({
-      url: "/login",
-      method: "POST",
+      url: "/user/login/wechatAuthorization",
+      method: "GET",
       data,
     });
   }

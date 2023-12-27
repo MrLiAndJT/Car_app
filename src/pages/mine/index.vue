@@ -1,7 +1,7 @@
 <template>
   <tm-app class="mine-wrap">
     <view class="user-container">
-      <view class="user-info-wrap">
+      <view class="user-info-wrap" @click="login">
         <view class="con-left">
           <tm-avatar
             :font-size="42"
@@ -13,7 +13,7 @@
         </view>
         <view class="con-right">
           <view class="user-name">
-            <text class="name">测试用户</text>
+            <text class="name">登陆/注册</text>
             <text class="iconfont icon-jinrujiantou"></text>
           </view>
           <view class="phone-wrap">
@@ -72,7 +72,22 @@
   </tm-app>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import System from "@/api/system";
+const login = () => {
+  // console.log("登陆...");
+  uni
+    .login()
+    .then((res) => {
+      console.log("授权登陆: ", res);
+      return System.login({ code: res.code });
+    })
+    .then((res) => {
+      console.log("后台登陆: ", res);
+    })
+    .catch((err) => {});
+};
+</script>
 
 <style lang="scss" scoped>
 .mine-wrap {

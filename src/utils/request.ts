@@ -12,6 +12,7 @@ export type ResultType<T> = {
 class requestData<T> {
   private token = "你好";
   static BASE_URL = import.meta.env.VITE_BASE_URL;
+  static PREFIX = import.meta.env.VITE_BASE_API_PREFIX;
   private readonly options: OptionsType = {
     url: "",
     method: "GET",
@@ -20,7 +21,7 @@ class requestData<T> {
   constructor(options: OptionsType) {
     this.options = {
       ...options,
-      url: requestData.BASE_URL + options.url,
+      url: requestData.BASE_URL + requestData.PREFIX + options.url,
     };
   }
   // 发送请求
