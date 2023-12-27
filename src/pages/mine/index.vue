@@ -16,7 +16,7 @@
             <text class="name">登陆/注册</text>
             <text class="iconfont icon-jinrujiantou"></text>
           </view>
-          <view class="phone-wrap">
+          <view class="phone-wrap" v-if="userStore.$state.loginData.token">
             <text class="iconfont icon-qiehuanchengshi"></text>
             <text class="phone-number">13282726250</text>
           </view>
@@ -63,14 +63,22 @@
         :title="'关于' + APP_NAME"
       />
       <tm-cell :margin="[0, 0]" :titleFontSize="30" title="服务协议" />
-    </tm-sheet>
-    <tm-sheet :margin="[20]" :padding="[0]" :round="[0, 0, 4, 4]">
       <tm-cell
         :margin="[0, 0]"
         :titleFontSize="30"
         title="我是师傅"
         rightText="查看入驻信息"
         :round="[0, 0, 4, 4]"
+      />
+    </tm-sheet>
+
+    <tm-sheet :margin="[20]" :padding="[0]" :round="[0, 0, 4, 4]">
+      <tm-cell
+        :margin="[0, 0]"
+        :titleFontSize="30"
+        title="退出登录"
+        :round="[0, 0, 4, 4]"
+        @click="loginOut"
       />
     </tm-sheet>
   </tm-app>
@@ -84,19 +92,39 @@ const APP_NAME = import.meta.env.VITE_APP_NAME;
 // 用户 store
 const userStore = useUserStore();
 
-// 去到登陆页面
-const toLoginPage = () => {
+const goPage = (url: string) => {
   uni.navigateTo({
-    url: "/pages/login/index",
+    url,
   });
 };
 
 // 登陆流程
 const login = () => {
   if (!userStore.$state.loginData.token) {
-    toLoginPage();
-    return;
+    // 未登录，去到登陆页面
+    goPage("/pages/login/index");
+  } else {
+    // 已登陆，去到修改用户信息页面
+    goPage("/pages/updateUserInfo/index");
   }
+};
+
+// 退出登录
+const loginOut = () => {
+  uni
+    .showModal({
+      title: "退出",
+      content: "确定退出登录吗？",
+    })
+    .then((data) => {
+      if (data.confirm) {
+        // 确定退出登录
+        userStore.logout();
+      }
+    })
+    .catch((err) => {
+      console.log("取消: ", err);
+    });
 };
 </script>
 

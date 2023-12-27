@@ -23,6 +23,10 @@ export const useUserStore = defineStore("user", {
     changeToken(token: string) {
       this.loginData.token = token;
     },
+    logout() {
+      this.changeUsername("");
+      this.changeToken("");
+    },
   },
   persist: {
     key: "user",
