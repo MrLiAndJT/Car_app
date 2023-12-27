@@ -57,7 +57,11 @@
       <tm-cell :margin="[0, 0]" :titleFontSize="30" title="我的保修卡" />
       <tm-cell :margin="[0, 0]" :titleFontSize="30" title="意见反馈" />
       <tm-cell :margin="[0, 0]" :titleFontSize="30" title="联系客服" />
-      <tm-cell :margin="[0, 0]" :titleFontSize="30" title="关于装车大师" />
+      <tm-cell
+        :margin="[0, 0]"
+        :titleFontSize="30"
+        :title="'关于' + APP_NAME"
+      />
       <tm-cell :margin="[0, 0]" :titleFontSize="30" title="服务协议" />
     </tm-sheet>
     <tm-sheet :margin="[20]" :padding="[0]" :round="[0, 0, 4, 4]">
@@ -74,6 +78,8 @@
 
 <script lang="ts" setup>
 import { useUserStore } from "@/store/modules/user";
+
+const APP_NAME = import.meta.env.VITE_APP_NAME;
 
 // 用户 store
 const userStore = useUserStore();
