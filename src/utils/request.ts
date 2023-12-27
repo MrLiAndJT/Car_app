@@ -1,3 +1,5 @@
+import { useUserStore } from "@/store/modules/user";
+
 type OptionsType = Pick<
   UniApp.RequestOptions,
   "url" | "method" | "timeout" | "responseType" | "header" | "data"
@@ -11,7 +13,7 @@ export type ResultType<T> = {
 };
 
 class requestData<T> {
-  private token = "你好";
+  private token = "";
   static BASE_URL = import.meta.env.VITE_BASE_URL;
   static PREFIX = import.meta.env.VITE_BASE_API_PREFIX;
   private readonly options: OptionsType = {
@@ -35,17 +37,18 @@ class requestData<T> {
   }
   // 发送前执行的函数
   beforeSend() {
+    const userStore = useUserStore();
     // 设置token
-    this.token = "赋值token";
+    this.token = userStore.$state.loginData.token;
     uni.showLoading({
       title: "加载中...",
       mask: true,
     });
     // 设置header
-    // this.options.header = {
-    //   // "Content-Type": "application/json;charset=utf-8",
-    //   Authorization: `token ${this.token}`,
-    // };
+    this.options.header = {
+      // "Content-Type": "application/json;charset=utf-8",
+      Authorization: `Bearer ${this.token}`,
+    };
   }
   // 返回数据的统一处理
   handleResult(
