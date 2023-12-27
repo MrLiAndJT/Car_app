@@ -57,9 +57,7 @@
       </tm-sheet>
 
       <view class="nearby-shops">
-        <tm-text color="primary" @click="carStoreConfig.show = true"
-          >查看附近门店</tm-text
-        >
+        <tm-text color="primary" @click="getNearbyShop"> 查看附近门店 </tm-text>
       </view>
 
       <tm-sheet
@@ -243,6 +241,18 @@ const selectLocation = () => {
     formData.value.address = addressArr.join("-");
     formData.value.addressDesc = res.address.replace(addressArr.join(""), "");
   });
+};
+
+// 查看附近门店
+const getNearbyShop = () => {
+  if (!formData.value.address) {
+    uni.showToast({
+      title: "请先选择地址",
+      icon: "none",
+    });
+    return;
+  }
+  carStoreConfig.show = true;
 };
 
 const confirm = () => {
