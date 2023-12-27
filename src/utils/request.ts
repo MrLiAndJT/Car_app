@@ -4,7 +4,8 @@ type OptionsType = Pick<
 >;
 
 export type ResultType<T> = {
-  code: number;
+  errCode: string;
+  httpCode: number;
   data: T;
   msg: string;
 };
@@ -46,17 +47,18 @@ class requestData<T> {
   handleResult(
     data: void | UniApp.RequestSuccessCallbackResult
   ): Promise<ResultType<T>> {
+    console.log("后端返回的data: ", data);
     if (!data) {
       // 请求失败
       console.log("未知错误");
       return Promise.reject(data);
     }
     const result = data.data as ResultType<T>;
-    if (result.code === 401) {
+    if (result.httpCode === 401) {
       console.log("token未验证");
       return Promise.reject(result);
     }
-    if (result.code !== 200) {
+    if (result.httpCode !== 200) {
       console.log("非200, 请求失败");
       return Promise.reject(result);
     }

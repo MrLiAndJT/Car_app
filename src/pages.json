@@ -36,6 +36,13 @@
       }
     },
     {
+      "path": "pages/login/index",
+      "style": {
+        "navigationBarTitleText": "登录",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
       "path": "pages/createOrder/index",
       "style": {
         "navigationBarTitleText": "下单",

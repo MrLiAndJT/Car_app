@@ -11,14 +11,17 @@ export const useUserStore = defineStore("user", {
   state(): useUserStoreState {
     return {
       loginData: {
-        username: "测试用户",
-        token: "token-123456abc",
+        username: "",
+        token: "",
       },
     };
   },
   actions: {
     changeUsername(name: string) {
       this.loginData.username = name;
+    },
+    changeToken(token: string) {
+      this.loginData.token = token;
     },
   },
   persist: {

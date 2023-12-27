@@ -73,19 +73,24 @@
 </template>
 
 <script lang="ts" setup>
-import System from "@/api/system";
+import { useUserStore } from "@/store/modules/user";
+
+// 用户 store
+const userStore = useUserStore();
+
+// 去到登陆页面
+const toLoginPage = () => {
+  uni.navigateTo({
+    url: "/pages/login/index",
+  });
+};
+
+// 登陆流程
 const login = () => {
-  // console.log("登陆...");
-  uni
-    .login()
-    .then((res) => {
-      console.log("授权登陆: ", res);
-      return System.login({ code: res.code });
-    })
-    .then((res) => {
-      console.log("后台登陆: ", res);
-    })
-    .catch((err) => {});
+  if (!userStore.$state.loginData.token) {
+    toLoginPage();
+    return;
+  }
 };
 </script>
 
