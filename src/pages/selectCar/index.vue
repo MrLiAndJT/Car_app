@@ -8,6 +8,7 @@
             :searchWidth="120"
             prefix="tmicon-search"
             searchLabel="搜索"
+            @search="filterData"
           />
         </tm-sheet>
       </template>
@@ -36,6 +37,7 @@ import { onLoad } from "@dcloudio/uni-app";
 import { ref } from "vue";
 import Main from "@/api/main";
 import type { CarInfoOptions } from "@/api/main/main.d";
+import { deepClone } from "@/tmui/tool/function/util";
 
 type HandleCarOptionsType = Omit<CarInfoOptions, "pinyin"> & {
   pinyin?: string;
@@ -53,7 +55,9 @@ const height = ref(700);
 // 是否正在加载中
 const loading = ref(false);
 
-// 汽车品牌列表
+// 原始数据
+const originData = ref<CarInfoOptions[]>([]);
+// 汽车品牌列表(过滤后的)
 const carList = ref<HandleCarOptionsType[]>([]);
 
 // 获取汽车品牌列表
@@ -61,34 +65,48 @@ const getCarList = () => {
   loading.value = true;
   Main.CarBrandOptionList()
     .then(({ data }) => {
-      const carObjData: CarObjType = {};
-      let list: HandleCarOptionsType[] = [];
-      data?.forEach((item) => {
-        const pinyin = item.pinyin;
-        if (Array.isArray(carObjData[pinyin])) {
-          carObjData[pinyin].push({
-            id: item.id,
-            label: item.label,
-          });
-        } else {
-          carObjData[pinyin] = [
-            {
-              id: item.id,
-              label: item.label,
-              pinyin,
-            },
-          ];
-        }
-      });
-      for (const prop in carObjData) {
-        const data = carObjData[prop];
-        list = [...list, ...data];
-      }
-      carList.value = list;
+      originData.value = data;
+      filterData();
     })
     .finally(() => {
       loading.value = false;
     });
+};
+
+// 根据搜索进行过滤
+const filterData = () => {
+  let filterList: CarInfoOptions[] = [];
+  if (!searchValue.value) {
+    filterList = deepClone(originData.value);
+  } else {
+    filterList = originData.value.filter((item) => {
+      return item.label.includes(searchValue.value);
+    });
+  }
+  let list: HandleCarOptionsType[] = [];
+  let carCategory: CarObjType = {};
+  filterList.forEach((item) => {
+    const pinyin = item.pinyin;
+    if (Array.isArray(carCategory[pinyin])) {
+      carCategory[pinyin].push({
+        id: item.id,
+        label: item.label,
+      });
+    } else {
+      carCategory[pinyin] = [
+        {
+          id: item.id,
+          label: item.label,
+          pinyin,
+        },
+      ];
+    }
+  });
+  for (const prop in carCategory) {
+    const data = carCategory[prop];
+    list = [...list, ...data];
+  }
+  carList.value = list;
 };
 
 getCarList();
