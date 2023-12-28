@@ -1,9 +1,10 @@
 import request from "@/utils/request";
+import type { CarInfoOptions } from "./main";
 
 class Main {
   // 获取汽车品牌选项列表
   static CarBrandOptionList() {
-    return request<any>({
+    return request<CarInfoOptions[]>({
       url: "/carBrand/optionList",
       method: "GET",
     });
