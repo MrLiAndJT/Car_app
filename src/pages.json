@@ -57,6 +57,13 @@
       }
     },
     {
+      "path": "pages/selectCarModel/index",
+      "style": {
+        "navigationBarTitleText": "车辆型号",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
       "path": "pages/updateUserInfo/index",
       "style": {
         "navigationBarTitleText": "个人信息",

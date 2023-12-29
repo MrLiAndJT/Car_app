@@ -22,7 +22,7 @@
             :navTitle="item.pinyin"
             :key="item.id"
           >
-            <view class="my-16">
+            <view class="my-16" @click="selectCarModel(item)">
               <tm-text :label="item.label"></tm-text>
             </view>
           </tm-indexes-item>
@@ -38,6 +38,7 @@ import { ref } from "vue";
 import Main from "@/api/main";
 import type { CarInfoOptions } from "@/api/main/main.d";
 import { deepClone } from "@/tmui/tool/function/util";
+import { useCarStore } from "@/store/modules/car";
 
 type HandleCarOptionsType = Omit<CarInfoOptions, "pinyin"> & {
   pinyin?: string;
@@ -47,6 +48,7 @@ type CarObjType = {
   [prop: string]: HandleCarOptionsType[];
 };
 
+const carStore = useCarStore();
 // 搜索文字
 const searchValue = ref("");
 
@@ -107,6 +109,14 @@ const filterData = () => {
     list = [...list, ...data];
   }
   carList.value = list;
+};
+
+// 选择品牌下的系列
+const selectCarModel = (data: HandleCarOptionsType) => {
+  carStore.setCarInfo(data as CarInfoOptions);
+  uni.navigateTo({
+    url: `/pages/selectCarModel/index`,
+  });
 };
 
 getCarList();

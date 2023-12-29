@@ -14,10 +14,11 @@ class Main {
     });
   }
   // 获取品牌下的系列
-  static CarBrandSeriesOptionList() {
-    return request<any>({
+  static CarBrandSeriesOptionList(data: { brandId: number }) {
+    return request<CarInfoOptions[]>({
       url: "/carBrandSeries/optionList",
       method: "GET",
+      data,
     });
   }
   // 获取附近门店
