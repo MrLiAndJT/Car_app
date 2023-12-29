@@ -79,13 +79,9 @@
 
         <tm-divider />
         <tm-sheet :padding="[0, 0]" :margin="[0]" :round="[4]">
-          <tm-text
-            :font-size="28"
-            label="请添加车辆"
-            class="flex-center"
-            color="#999"
-            :padding="[0, 20]"
-          />
+          <text class="car-info-text">
+            {{ carStore.$state.carBrandInfo?.label || "请添加车辆" }}
+          </text>
         </tm-sheet>
       </tm-sheet>
 
@@ -177,7 +173,9 @@
 import { reactive, ref, watch } from "vue";
 import Main from "@/api/main";
 import type { PartnerStoreListOut } from "@/api/main/main";
+import { useCarStore } from "@/store/modules/car";
 
+const carStore = useCarStore();
 const dateStr = ref("");
 const citydate = ref([]);
 const showdate = ref(false);
@@ -249,6 +247,14 @@ const getNearbyShop = async () => {
 const confirm = () => {
   console.log("提交表单...");
 };
+
+// 初始化
+const init = () => {
+  // 把之前选的车辆信息清空
+  carStore.setCarInfo(null);
+  carStore.setCarBrandInfo(null);
+};
+init();
 </script>
 
 <style lang="scss" scoped>
@@ -272,6 +278,14 @@ const confirm = () => {
     .agree {
       margin-left: 10rpx;
     }
+  }
+  .car-info-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: "#999";
+    font-size: 28rpx;
+    padding: 20rpx;
   }
   .location {
     display: flex;
