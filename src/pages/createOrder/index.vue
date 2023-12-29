@@ -159,10 +159,12 @@
           :key="item.id"
         >
           <view class="left">
-            <view class="padding"> {{ item.name }} </view>
+            <view class="padding"> {{ item.title }} </view>
           </view>
           <view class="right">
-            <view class="padding"> {{ item.distance }} </view>
+            <view class="padding">
+              {{ (item.gap || 0).toFixed(2) + item.unit }}
+            </view>
           </view>
         </view>
         <view class="null" v-else>附近暂无门店</view>
@@ -173,6 +175,8 @@
 
 <script lang="ts" setup>
 import { reactive, ref, watch } from "vue";
+import Main from "@/api/main";
+import type { PartnerStoreListOut } from "@/api/main/main";
 
 const dateStr = ref("");
 const citydate = ref([]);
@@ -202,30 +206,12 @@ const navTo = (url: string) => {
   });
 };
 
-const carStoreConfig = reactive({
+const carStoreConfig = reactive<{
+  show: boolean;
+  tableData: PartnerStoreListOut[];
+}>({
   show: false,
-  tableData: [
-    {
-      id: 1,
-      name: "广州1号店",
-      distance: "1.3km",
-    },
-    {
-      id: 2,
-      name: "海珠合作门店",
-      distance: "5.6km",
-    },
-    {
-      id: 3,
-      name: "番禺大学城xx门店",
-      distance: "4.8km",
-    },
-    {
-      id: 4,
-      name: "番禺区总店铺",
-      distance: "3.7km",
-    },
-  ],
+  tableData: [],
 });
 
 // 把位置拆分成数组
@@ -244,7 +230,7 @@ const selectLocation = () => {
 };
 
 // 查看附近门店
-const getNearbyShop = () => {
+const getNearbyShop = async () => {
   if (!formData.value.address) {
     uni.showToast({
       title: "请先选择地址",
@@ -252,6 +238,11 @@ const getNearbyShop = () => {
     });
     return;
   }
+  const data = await Main.partnerStoreList({
+    address: formData.value.address + "-" + formData.value.addressDesc,
+    limitGap: 5,
+  });
+  carStoreConfig.tableData = data.data || [];
   carStoreConfig.show = true;
 };
 

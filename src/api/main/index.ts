@@ -1,5 +1,9 @@
 import request from "@/utils/request";
-import type { CarInfoOptions } from "./main";
+import type {
+  CarInfoOptions,
+  PartnerStoreListIn,
+  PartnerStoreListOut,
+} from "./main";
 
 class Main {
   // 获取汽车品牌选项列表
@@ -14,6 +18,14 @@ class Main {
     return request<any>({
       url: "/carBrandSeries/optionList",
       method: "GET",
+    });
+  }
+  // 获取附近门店
+  static partnerStoreList(data: PartnerStoreListIn) {
+    return request<PartnerStoreListOut[]>({
+      url: "/partnerStore/list",
+      method: "GET",
+      data,
     });
   }
 }
