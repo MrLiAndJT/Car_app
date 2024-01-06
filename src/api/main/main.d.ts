@@ -18,3 +18,16 @@ export type PartnerStoreListOut = {
   gap: number;
   unit: string;
 };
+
+export type UserOrderIn = {
+  carOwnerName: string;
+  carOwnerPhoneNumber: string;
+  carOwnerLongitude: number;
+  carOwnerLatitude: number;
+  carOwnerMultiLvAddr: string;
+  carOwnerFullAddress: string;
+  carBrandId: number;
+  carSeriesId: number;
+  requirements: string;
+  agreeToTerms: 0 | 1;
+};

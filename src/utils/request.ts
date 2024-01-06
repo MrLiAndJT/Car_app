@@ -63,7 +63,9 @@ class requestData<T> {
     }
     const result = data.data as ResultType<T>;
     if (result.httpCode === 401) {
-      console.log("token未验证");
+      uni.navigateTo({
+        url: "/pages/login/index",
+      });
       return Promise.reject(result);
     }
     if (result.httpCode !== 200) {

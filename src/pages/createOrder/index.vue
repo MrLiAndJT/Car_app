@@ -4,7 +4,6 @@
       class="form-wrap"
       v-model="formData"
       layout="vertical"
-      @submit="confirm"
       ref="form"
       :label-width="150"
       :padding="[0, 0]"
@@ -15,21 +14,39 @@
       <tm-sheet :padding="[0, 0]" :margin="[20]" :round="[4]">
         <tm-text :font-size="24" _class="text-weight-b" label="车主信息" />
         <tm-divider />
-        <tm-form-item required label="车主姓名" field="name" :errHeight="15">
-          <tm-input v-model="formData.name" placeholder="请输入车主姓名" />
-        </tm-form-item>
-        <tm-form-item required label="电话" field="phone" :errHeight="15">
+        <tm-form-item
+          required
+          label="车主姓名"
+          field="carOwnerName"
+          :errHeight="15"
+        >
           <tm-input
-            v-model="formData.phone"
+            v-model="formData.carOwnerName"
+            placeholder="请输入车主姓名"
+          />
+        </tm-form-item>
+        <tm-form-item
+          required
+          label="电话"
+          field="carOwnerPhoneNumber"
+          :errHeight="15"
+        >
+          <tm-input
+            v-model="formData.carOwnerPhoneNumber"
             type="number"
             placeholder="请输入电话号码"
           />
         </tm-form-item>
-        <tm-form-item required label="地址" field="address" :errHeight="15">
+        <tm-form-item
+          required
+          label="地址"
+          field="carOwnerMultiLvAddr"
+          :errHeight="15"
+        >
           <view class="location">
             <tm-input
               class="search"
-              v-model="formData.address"
+              v-model="formData.carOwnerMultiLvAddr"
               :readonly="true"
               :adjustPosition="false"
               :disabled="true"
@@ -44,11 +61,11 @@
         <tm-form-item
           required
           label="详情地址"
-          field="addressDesc"
+          field="carOwnerFullAddress"
           :errHeight="15"
         >
           <tm-input
-            v-model="formData.addressDesc"
+            v-model="formData.carOwnerFullAddress"
             type="textarea"
             :height="150"
             placeholder="请输入详情地址"
@@ -88,17 +105,22 @@
       <tm-sheet :padding="[0, 0]" :margin="[20]" :round="[4]">
         <tm-text :font-size="24" _class="text-weight-b" label="其它信息" />
         <tm-divider />
-        <tm-form-item field="desc" :errHeight="15">
+        <tm-form-item field="requirements" :errHeight="15">
           <tm-input
-            v-model="formData.desc"
+            v-model="formData.requirements"
             type="textarea"
             :height="150"
             placeholder="请输入备注"
           />
         </tm-form-item>
-        <tm-form-item field="agree" :errHeight="15">
+        <tm-form-item field="agreeToTerms" :errHeight="15">
           <view class="agree-wrap">
-            <tm-checkbox :margin="[0]" :padding="[0]" v-model="formData.agree">
+            <tm-checkbox
+              :margin="[0]"
+              :padding="[0]"
+              :value="1"
+              v-model="formData.agreeToTerms"
+            >
               <template v-slot:default="{ checked }">
                 <view class="flex flex-row agree">
                   <tm-text label="我已经阅读并同意" />
@@ -118,8 +140,8 @@
     </tm-form>
 
     <view class="price-container">
-      <view class="con-left"> 预估服务费: ¥0.00 </view>
-      <view class="submit">发布订单</view>
+      <view class="con-left"> 预估服务费: 等待店家报价中... </view>
+      <view class="submit" @click="confirm">发布订单</view>
     </view>
 
     <tm-city-picker
@@ -134,8 +156,8 @@
       content="这是一分关于汽车维修的xxxxx协议, 一下内容xxxxxxx"
       okText="同意"
       v-model:show="showAgree"
-      @ok="formData.agree = true"
-      @cancel="formData.agree = false"
+      @ok="formData.agreeToTerms = 1"
+      @cancel="formData.agreeToTerms = 0"
     />
 
     <tm-overlay v-model:show="carStoreConfig.show" contentAnimation>
@@ -172,7 +194,7 @@
 <script lang="ts" setup>
 import { reactive, ref, watch } from "vue";
 import Main from "@/api/main";
-import type { PartnerStoreListOut } from "@/api/main/main";
+import type { PartnerStoreListOut, UserOrderIn } from "@/api/main/main";
 import { useCarStore } from "@/store/modules/car";
 
 const carStore = useCarStore();
@@ -182,20 +204,22 @@ const showdate = ref(false);
 
 const showAgree = ref(false);
 
-const formData = ref({
-  name: "",
-  phone: "",
-  address: "",
-  addressDesc: "",
-  proExit: true,
-  desc: "",
-  car: "",
-  agree: false,
+const formData = ref<UserOrderIn>({
+  carOwnerName: "",
+  carOwnerPhoneNumber: "",
+  carOwnerMultiLvAddr: "",
+  carOwnerFullAddress: "",
+  agreeToTerms: 0,
+  requirements: "",
+  carBrandId: 0,
+  carSeriesId: 0,
+  carOwnerLongitude: 0,
+  carOwnerLatitude: 0,
 });
 
 watch(citydate, (nVal) => {
-  formData.value.address = nVal.join("-");
-  formData.value.addressDesc = "";
+  formData.value.carOwnerMultiLvAddr = nVal.join("-");
+  formData.value.carOwnerFullAddress = "";
 });
 
 const navTo = (url: string) => {
@@ -222,14 +246,17 @@ function splitAddress(address: string) {
 const selectLocation = () => {
   uni.chooseLocation().then((res) => {
     const addressArr = splitAddress(res.address);
-    formData.value.address = addressArr.join("-");
-    formData.value.addressDesc = res.address.replace(addressArr.join(""), "");
+    formData.value.carOwnerMultiLvAddr = addressArr.join("-");
+    formData.value.carOwnerFullAddress = res.address.replace(
+      addressArr.join(""),
+      ""
+    );
   });
 };
 
 // 查看附近门店
 const getNearbyShop = async () => {
-  if (!formData.value.address) {
+  if (!formData.value.carOwnerMultiLvAddr) {
     uni.showToast({
       title: "请先选择地址",
       icon: "none",
@@ -237,15 +264,22 @@ const getNearbyShop = async () => {
     return;
   }
   const data = await Main.partnerStoreList({
-    address: formData.value.address + "-" + formData.value.addressDesc,
+    address:
+      formData.value.carOwnerMultiLvAddr +
+      "-" +
+      formData.value.carOwnerFullAddress,
     limitGap: 5,
   });
   carStoreConfig.tableData = data.data || [];
   carStoreConfig.show = true;
 };
 
-const confirm = () => {
-  console.log("提交表单...");
+const confirm = async () => {
+  formData.value.carBrandId = carStore.$state.carInfo?.id || 0;
+  formData.value.carSeriesId = carStore.$state.carBrandInfo?.id || 0;
+  formData.value.agreeToTerms = formData.value.agreeToTerms ? 1 : 0;
+  const data = await Main.userOrder(formData.value);
+  console.log("表单数据提交: ", data);
 };
 
 // 初始化
@@ -255,6 +289,20 @@ const init = () => {
   carStore.setCarBrandInfo(null);
 };
 init();
+
+const obj = {
+  carOwnerName: "小明",
+  carOwnerPhoneNumber: "13265427654",
+  carOwnerMultiLvAddr: "北京市-市辖区-东城区",
+  carOwnerFullAddress: "xx大街1哈",
+  agree: true,
+  requirements: "呼呼呼呼",
+  carBrandId: 88,
+  carBrandSeriesId: 2,
+  partnerStoreId: "12",
+  carOwnerLongitude: 0,
+  carOwnerLatitude: 0,
+};
 </script>
 
 <style lang="scss" scoped>

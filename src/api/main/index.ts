@@ -3,6 +3,7 @@ import type {
   CarInfoOptions,
   PartnerStoreListIn,
   PartnerStoreListOut,
+  UserOrderIn,
 } from "./main";
 
 class Main {
@@ -26,6 +27,14 @@ class Main {
     return request<PartnerStoreListOut[]>({
       url: "/partnerStore/list",
       method: "GET",
+      data,
+    });
+  }
+  // 创建用户订单
+  static userOrder(data: UserOrderIn) {
+    return request<any>({
+      url: "/userOrder",
+      method: "POST",
       data,
     });
   }
