@@ -32,7 +32,7 @@ class Main {
   }
   // 创建用户订单
   static userOrder(data: UserOrderIn) {
-    return request<any>({
+    return request<{ newId: number }>({
       url: "/userOrder",
       method: "POST",
       data,

@@ -274,12 +274,56 @@ const getNearbyShop = async () => {
   carStoreConfig.show = true;
 };
 
+const showErrorText = (text: string) => {
+  uni.showToast({
+    title: text,
+    icon: "error",
+  });
+};
+
 const confirm = async () => {
-  formData.value.carBrandId = carStore.$state.carInfo?.id || 0;
-  formData.value.carSeriesId = carStore.$state.carBrandInfo?.id || 0;
+  const carInfoId = carStore.$state.carInfo?.id;
+  const carBrandInfoId = carStore.$state.carBrandInfo?.id;
+
+  if (!formData.value.carOwnerName) {
+    showErrorText("请输入姓名");
+    return;
+  }
+  if (!formData.value.carOwnerPhoneNumber) {
+    showErrorText("请输入手机号");
+    return;
+  }
+
+  const reg = /^(?:(?:\+|00)86)?1[3-9]\d{9}$/;
+  if (!reg.test(formData.value.carOwnerPhoneNumber)) {
+    showErrorText("手机号不正确");
+    return;
+  }
+
+  if (!formData.value.carOwnerMultiLvAddr) {
+    showErrorText("请选择地址");
+    return;
+  }
+  if (!formData.value.carOwnerFullAddress) {
+    showErrorText("请输入纤细地址");
+    return;
+  }
+  if (!formData.value.agreeToTerms) {
+    showErrorText("需同意合作协议");
+    return;
+  }
+
+  if (!carInfoId || !carBrandInfoId) {
+    showErrorText("请先选择汽车");
+    return;
+  }
+  formData.value.carBrandId = carInfoId;
+  formData.value.carSeriesId = carBrandInfoId;
   formData.value.agreeToTerms = formData.value.agreeToTerms ? 1 : 0;
   const data = await Main.userOrder(formData.value);
-  console.log("表单数据提交: ", data);
+  uni.switchTab({
+    url: "/pages/order/index",
+  });
 };
 
 // 初始化
@@ -289,20 +333,6 @@ const init = () => {
   carStore.setCarBrandInfo(null);
 };
 init();
-
-const obj = {
-  carOwnerName: "小明",
-  carOwnerPhoneNumber: "13265427654",
-  carOwnerMultiLvAddr: "北京市-市辖区-东城区",
-  carOwnerFullAddress: "xx大街1哈",
-  agree: true,
-  requirements: "呼呼呼呼",
-  carBrandId: 88,
-  carBrandSeriesId: 2,
-  partnerStoreId: "12",
-  carOwnerLongitude: 0,
-  carOwnerLatitude: 0,
-};
 </script>
 
 <style lang="scss" scoped>
