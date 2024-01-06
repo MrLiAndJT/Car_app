@@ -29,8 +29,10 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import OrderCard from "./components/OrderCard.vue";
+import Main from "@/api/main";
 
 const searchValue = ref("");
+const loading = ref(false);
 
 const showData = ref(true);
 
@@ -51,6 +53,14 @@ const segtabChange = (value: string) => {
     showData.value = false;
   }
 };
+
+const getOrderList = async () => {
+  uni.showLoading();
+  const data = await Main.userOrderList();
+  console.log("data: ", data);
+};
+
+getOrderList();
 </script>
 
 <style lang="scss">

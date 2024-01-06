@@ -38,6 +38,13 @@ class Main {
       data,
     });
   }
+  // 获取订单列表
+  static userOrderList() {
+    return request<any>({
+      url: "/userOrder/list",
+      method: "GET",
+    });
+  }
 }
 
 export default Main;
