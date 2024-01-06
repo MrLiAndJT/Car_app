@@ -1,0 +1,118 @@
+view,
+text {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+page {
+  // background-color: #f1f1f1;
+  height: 100%;
+}
+
+.bg-gray {
+  background-color: #f1f1f1;
+}
+
+.bg-white {
+  background-color: #fff;
+}
+
+.common-padding {
+  padding: 20rpx;
+}
+
+.full-height {
+  height: 100%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.d {
+  &-flex {
+    display: flex;
+  }
+  &-block {
+    display: block;
+  }
+}
+
+.justify-content {
+  &-flex-start {
+    justify-content: flex-start;
+  }
+  &-flex-end {
+    justify-content: flex-end;
+  }
+  &-center {
+    justify-content: center;
+  }
+}
+
+.align-items {
+  &-flex-start {
+    align-items: flex-start;
+  }
+  &-end {
+    justify-items: flex-end;
+  }
+  &-center {
+    align-items: center;
+  }
+}
+
+// 最大距离 [ padding 和 margin ]
+$max-space: 30; // 设置你需要的最大 space 值
+// 循环生成类选择器
+@for $i from 1 through $max-space {
+  // padding
+  .p-#{$i} {
+    padding: #{$i}rpx;
+  }
+  .p-l-#{$i} {
+    padding-left: #{$i}rpx;
+  }
+  .p-r-#{$i} {
+    padding-right: #{$i}rpx;
+  }
+  .p-t-#{$i} {
+    padding-top: #{$i}rpx;
+  }
+  .p-b-#{$i} {
+    padding-bottom: #{$i}rpx;
+  }
+  .p-x-#{$i} {
+    padding-left: #{$i}rpx;
+    padding-right: #{$i}rpx;
+  }
+  .p-y-#{$i} {
+    padding-top: #{$i}rpx;
+    padding-bottom: #{$i}rpx;
+  }
+  // margin
+  .m-#{$i} {
+    margin: #{$i}rpx;
+  }
+  .m-l-#{$i} {
+    margin-left: #{$i}rpx;
+  }
+  .m-r-#{$i} {
+    margin-right: #{$i}rpx;
+  }
+  .m-t-#{$i} {
+    margin-top: #{$i}rpx;
+  }
+  .m-b-#{$i} {
+    margin-bottom: #{$i}rpx;
+  }
+  .m-x-#{$i} {
+    margin-left: #{$i}rpx;
+    margin-right: #{$i}rpx;
+  }
+  .m-y-#{$i} {
+    margin-top: #{$i}rpx;
+    margin-bottom: #{$i}rpx;
+  }
+}

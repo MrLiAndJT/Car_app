@@ -5,4 +5,5 @@
 @import "uview-plus/index.scss";
 // 阿里云字体图标
 @import "@/iconfont/index.scss";
+@import "/src/style/index.scss";
 </style>
