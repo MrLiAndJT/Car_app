@@ -18,6 +18,7 @@
               v-model="formData.carOwnerPhoneNumber"
               border="none"
               placeholder="请输入电话"
+              type="number"
             />
           </up-form-item>
           <up-form-item label="地址" borderBottom>
@@ -185,6 +186,7 @@ const showErrorText = (text: string) => {
 };
 
 const confirm = async () => {
+  console.log("发布订单..");
   const carInfoId = carStore.$state.carInfo?.id;
   const carBrandInfoId = carStore.$state.carBrandInfo?.id;
 
@@ -264,6 +266,7 @@ init();
     padding: 20rpx 0;
   }
   .price-container {
+    z-index: 999;
     height: 120rpx;
     width: 100%;
     position: fixed;
