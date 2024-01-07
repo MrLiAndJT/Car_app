@@ -29,11 +29,17 @@
           </up-form-item>
           <up-form-item borderBottom>
             <u-textarea
-              v-model="formData.carOwnerMultiLvAddr"
+              v-model="formData.carOwnerFullAddress"
               border="none"
               placeholder="请输入详情地址信息"
             />
           </up-form-item>
+          <up-button
+            type="primary"
+            text="查看附近门店"
+            :plain="true"
+            @click="getNearbyShop"
+          />
         </view>
         <view class="p-20 bg-white mt-20 border-radius-10">
           <view class="title-box">
@@ -88,6 +94,12 @@
       <view class="con-left"> 预估服务费: 等待店家报价中... </view>
       <view class="submit" @click="confirm">发布订单</view>
     </view>
+    <StoreTable
+      v-if="showStore"
+      v-model:show="showStore"
+      :carOwnerMultiLvAddr="formData.carOwnerMultiLvAddr"
+      :carOwnerFullAddress="formData.carOwnerFullAddress"
+    />
   </view>
 </template>
 
@@ -96,13 +108,14 @@ import { reactive, ref, watch } from "vue";
 import Main from "@/api/main";
 import type { PartnerStoreListOut, UserOrderIn } from "@/api/main/main";
 import { useCarStore } from "@/store/modules/car";
+import StoreTable from "./components/StoreTable.vue";
 
 const carStore = useCarStore();
 const dateStr = ref("");
 const citydate = ref([]);
 const showdate = ref(false);
-
 const showAgree = ref(false);
+const showStore = ref(false);
 
 const formData = ref<UserOrderIn>({
   carOwnerName: "",
@@ -127,14 +140,6 @@ const navTo = (url: string) => {
     url,
   });
 };
-
-const carStoreConfig = reactive<{
-  show: boolean;
-  tableData: PartnerStoreListOut[];
-}>({
-  show: false,
-  tableData: [],
-});
 
 // 把位置拆分成数组
 /*自动拆分省市区*/
@@ -163,15 +168,7 @@ const getNearbyShop = async () => {
     });
     return;
   }
-  const data = await Main.partnerStoreList({
-    address:
-      formData.value.carOwnerMultiLvAddr +
-      "-" +
-      formData.value.carOwnerFullAddress,
-    limitGap: 5,
-  });
-  carStoreConfig.tableData = data.data || [];
-  carStoreConfig.show = true;
+  showStore.value = true;
 };
 
 const showErrorText = (text: string) => {
