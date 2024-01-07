@@ -28,13 +28,15 @@
             <text class="title">让安装 更简单</text>
             <text class="subtitle">专业安装 安全保障</text>
           </view>
-          <up-image
-            preview
-            :width="150"
-            :height="150"
-            :src="steering_wheel"
-            class="img"
-          />
+          <view class="img">
+            <up-image
+              class="img"
+              :width="150"
+              :height="150"
+              :src="steering_wheel"
+              :showMenuByLongpress="false"
+            />
+          </view>
         </view>
       </view>
     </view>
@@ -66,10 +68,10 @@
         </view>
       </view>
       <up-image
-        :width="335"
-        :height="138.5"
+        class="border-radius-20 img"
+        width="670rpx"
+        height="227rpx"
         :src="dispatch_order"
-        class="img"
         @click="createOrder"
       />
       <view class="order-process-wrap">
