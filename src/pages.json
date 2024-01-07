@@ -26,7 +26,8 @@
       "path": "pages/order/index",
       "style": {
         "navigationBarTitleText": "订单",
-        "enablePullDownRefresh": false
+        "enablePullDownRefresh": false,
+        "navigationStyle": "custom"
       }
     },
     {
