@@ -10,6 +10,11 @@ page {
   height: 100%;
 }
 
+.u-text {
+  flex: none !important;
+  width: auto !important;
+}
+
 .bg-gray {
   background-color: #f1f1f1;
 }
@@ -36,6 +41,24 @@ page {
   }
   &-block {
     display: block;
+  }
+}
+
+.flex {
+  &-none {
+    flex: none !important;
+  }
+}
+
+.text-align {
+  &-left {
+    text-align: left;
+  }
+  &-right {
+    text-align: left;
+  }
+  &-center {
+    text-align: center;
   }
 }
 
