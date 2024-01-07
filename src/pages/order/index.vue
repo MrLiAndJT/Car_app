@@ -20,22 +20,32 @@
             placeholder="请输入搜索订单名称"
           />
         </view>
-        <u-tabs :list="menuList" keyName="name" :scrollable="false" />
+        <u-tabs
+          :list="menuList"
+          keyName="name"
+          :scrollable="false"
+          @change="tabsChange"
+        />
       </view>
     </u-sticky>
-    <OrderCard :dataList="orderList" />
+    <OrderCard :type="activeTabName" />
   </view>
 </template>
 
 <script lang="ts" setup>
 import { ref, reactive } from "vue";
-import Main from "@/api/main";
-import type { OrderListOut } from "@/api/main/main";
 import OrderCard from "./components/OrderCard.vue";
+
+type MenuListType = {
+  key: string;
+  name: string;
+};
 
 const searchValue = ref("");
 
-const menuList = reactive([
+const activeTabName = ref("pedding");
+
+const menuList = reactive<MenuListType[]>([
   {
     key: "pedding",
     name: "待处理",
@@ -50,14 +60,9 @@ const menuList = reactive([
   },
 ]);
 
-const orderList = ref<OrderListOut[]>([]);
-
-const getOrderList = async () => {
-  const data = await Main.userOrderList();
-  orderList.value = data.data || [];
+const tabsChange = (data: MenuListType & { index: number }) => {
+  activeTabName.value = data.key;
 };
-
-getOrderList();
 </script>
 
 <style lang="scss" scoped>

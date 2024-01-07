@@ -46,6 +46,23 @@ class Main {
       method: "GET",
     });
   }
+
+  // 获取用户订单详情
+  static userOrderGet(data: { id: number }) {
+    return request<OrderListOut>({
+      url: "/userOrder/list",
+      method: "GET",
+      data,
+    });
+  }
+
+  // 删除用户订单
+  static userOrderDelete(id: number) {
+    return request<null>({
+      url: `/userOrder/${id}`,
+      method: "DELETE",
+    });
+  }
 }
 
 export default Main;
