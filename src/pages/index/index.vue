@@ -67,13 +67,30 @@
           <view class="subtit">服务好评率</view>
         </view>
       </view>
-      <up-image
-        class="border-radius-20 img"
-        width="670rpx"
-        height="227rpx"
-        :src="dispatch_order"
-        @click="createOrder"
-      />
+      <view class="order-img-wrap" @click="createOrder">
+        <view class="context-left">
+          <view class="title">我要派单</view>
+          <up-button
+            type="primary"
+            :plain="true"
+            text="点击派单"
+            :customStyle="{
+              width: '150rpx',
+              height: '60rpx',
+              margin: '10rpx 0 0',
+              boxShadow: '2rpx 2rpx 4rpx #b8c1ca',
+            }"
+          />
+        </view>
+        <!-- <up-image
+          class="border-radius-20 img"
+          width="670rpx"
+          height="227rpx"
+          :src="dispatch_order"
+          @click="createOrder"
+        /> -->
+      </view>
+
       <view class="order-process-wrap">
         <view class="tit">下单流程</view>
         <view class="step-wrap">
@@ -113,7 +130,7 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import steering_wheel from "@/static/steering_wheel.png";
-import dispatch_order from "@/static/dispatch_order.jpg";
+import dispatch_order from "@/static/banner1.png";
 import { useUserStore } from "@/store/modules/user";
 
 // 用户 store
@@ -197,6 +214,27 @@ const createOrder = () => {
   border-top-right-radius: 40rpx;
   background-color: #fff;
   padding: 40rpx;
+  .order-img-wrap {
+    position: relative;
+    width: 670rpx;
+    height: 227rpx;
+    background-image: url("/static/banner1.png");
+    background-size: cover;
+    background-position: center center;
+    color: #fff;
+    .context-left {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-left: 100rpx;
+      .title {
+        font-size: 52rpx;
+        font-style: oblique;
+        text-shadow: 0 0 10px #b8c1ca;
+      }
+    }
+  }
   .statistics-wrap {
     margin: 50rpx 0;
     display: flex;
