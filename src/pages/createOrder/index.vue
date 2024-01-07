@@ -155,7 +155,6 @@ function splitAddress(address: string) {
 }
 
 const selectLocation = () => {
-  console.log("选择地址...");
   uni.chooseLocation().then((res) => {
     const addressArr = splitAddress(res.address);
     formData.value.carOwnerMultiLvAddr = addressArr.join("-");
