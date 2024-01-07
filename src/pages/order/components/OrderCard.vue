@@ -54,6 +54,7 @@
               shape="circle"
               text="修改订单"
               :customStyle="btnCss"
+              @click="getOrderDetail(item.id)"
             />
             <up-button
               type="primary"
@@ -113,6 +114,11 @@ const getOrderList = async () => {
   const data = await Main.userOrderList();
   orderList.value = data.data || [];
   uni.hideLoading();
+};
+
+const getOrderDetail = async (id: number) => {
+  const data = await Main.userOrderGet(id);
+  console.log("详情: ", data);
 };
 
 watch(

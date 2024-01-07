@@ -48,11 +48,10 @@ class Main {
   }
 
   // 获取用户订单详情
-  static userOrderGet(data: { id: number }) {
+  static userOrderGet(id: number) {
     return request<OrderListOut>({
-      url: "/userOrder/list",
+      url: `/userOrder/${id}`,
       method: "GET",
-      data,
     });
   }
 
