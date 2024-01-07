@@ -63,6 +63,29 @@ page {
   }
 }
 
+// 最大圆角数
+$max-border-radius: 20;
+// 循环生成圆角数
+@for $i from 1 through $max-border-radius {
+  .border {
+    &-radius-#{$i} {
+      border-radius: #{$i}rpx;
+    }
+    &-top-left-radius-#{$i} {
+      border-top-left-radius: #{$i}rpx;
+    }
+    &-top-right-radius-#{$i} {
+      border-top-right-radius: #{$i}rpx;
+    }
+    &-bottom-left-radius-#{$i} {
+      border-bottom-left-radius: #{$i}rpx;
+    }
+    &-bottom-right-radius-#{$i} {
+      border-bottom-right-radius: #{$i}rpx;
+    }
+  }
+}
+
 // 最大距离 [ padding 和 margin ]
 $max-space: 30; // 设置你需要的最大 space 值
 // 循环生成类选择器
