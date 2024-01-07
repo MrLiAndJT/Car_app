@@ -83,7 +83,10 @@
 
           <up-form-item>
             <view class="d-flex align-items-center">
-              <u-checkbox v-model="formData.agreeToTerms" name="agreeToTerms" />
+              <u-checkbox-group v-model="formData.agreeToTerms">
+                <u-checkbox :name="1" />
+              </u-checkbox-group>
+
               <up-text class="flex-none" :block="true" text="我已阅读并同意" />
               <up-text
                 class="flex-none"
@@ -129,7 +132,7 @@ const formData = ref<UserOrderIn>({
   carOwnerPhoneNumber: "",
   carOwnerMultiLvAddr: "",
   carOwnerFullAddress: "",
-  agreeToTerms: 0,
+  agreeToTerms: [0],
   requirements: "",
   carBrandId: 0,
   carSeriesId: 0,
@@ -187,8 +190,15 @@ const showErrorText = (text: string) => {
 
 const confirm = async () => {
   console.log("发布订单..");
+  console.log("agreeToTerms: ", formData.value.agreeToTerms);
   const carInfoId = carStore.$state.carInfo?.id;
   const carBrandInfoId = carStore.$state.carBrandInfo?.id;
+  let agreeToTerms = 0;
+  if (Array.isArray(formData.value.agreeToTerms)) {
+    agreeToTerms = formData.value.agreeToTerms[0] || 0;
+  }
+
+  console.log("agreeToTerms: ", formData.value.agreeToTerms);
 
   if (!formData.value.carOwnerName) {
     showErrorText("请输入姓名");
@@ -224,8 +234,13 @@ const confirm = async () => {
   }
   formData.value.carBrandId = carInfoId;
   formData.value.carSeriesId = carBrandInfoId;
-  formData.value.agreeToTerms = formData.value.agreeToTerms ? 1 : 0;
-  const data = await Main.userOrder(formData.value);
+  const data = await Main.userOrder({
+    ...formData.value,
+    agreeToTerms: agreeToTerms ? 1 : 0,
+  });
+  uni.showToast({
+    title: "发起订单成功!",
+  });
   uni.switchTab({
     url: "/pages/order/index",
   });

@@ -29,5 +29,5 @@ export type UserOrderIn = {
   carBrandId: number;
   carSeriesId: number;
   requirements: string;
-  agreeToTerms: 0 | 1;
+  agreeToTerms: 0 | 1 | [0 | 0];
 };
