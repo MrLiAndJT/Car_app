@@ -21,11 +21,20 @@
             />
           </up-form-item>
           <up-form-item label="地址" borderBottom>
-            <up-input
-              v-model="formData.carOwnerMultiLvAddr"
-              border="none"
-              placeholder="请选择地址"
-            />
+            <view class="d-flex">
+              <up-input
+                v-model="formData.carOwnerMultiLvAddr"
+                border="none"
+                placeholder="请选择地址"
+              />
+              <up-button
+                type="primary"
+                icon="map"
+                :customStyle="{ width: '80rpx' }"
+                :plain="true"
+                @click="selectLocation"
+              />
+            </view>
           </up-form-item>
           <up-form-item borderBottom>
             <u-textarea
