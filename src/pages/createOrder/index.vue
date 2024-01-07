@@ -41,7 +41,12 @@
             <up-button
               type="primary"
               size="mini"
-              :customStyle="{ width: '150rpx', margin: 0 }"
+              :customStyle="{
+                width: '150rpx',
+                margin: 0,
+                fontSize: '28rpx',
+                height: '65rpx',
+              }"
               @click="navTo('/pages/selectCar/index')"
             >
               选择车辆
