@@ -42,7 +42,7 @@ const menuList = reactive([
   },
   {
     key: "doing",
-    name: "生产中",
+    name: "进行中",
   },
   {
     key: "finish",

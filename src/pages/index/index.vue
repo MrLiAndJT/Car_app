@@ -222,12 +222,14 @@ const createOrder = () => {
     background-size: cover;
     background-position: center center;
     color: #fff;
+    border-radius: 20rpx;
+    overflow: hidden;
     .context-left {
       height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      margin-left: 100rpx;
+      margin-left: 50rpx;
       .title {
         font-size: 52rpx;
         font-style: oblique;
@@ -263,15 +265,17 @@ const createOrder = () => {
     position: relative;
     height: 250rpx;
     margin-top: 40rpx;
-    background-color: $uni-color-primary;
+    background-image: url("/static/banner2.png");
+    background-size: cover;
+    background-position: center center;
     border-radius: 20rpx;
     .tit {
       position: absolute;
       left: 0;
       top: 0;
       padding: 10rpx 40rpx;
-      background-color: #000;
-      color: $uni-color-primary;
+      background-color: rgb(8, 123, 241);
+      color: #d4e9ff;
       font-size: 24rpx;
       border-top-left-radius: 20rpx;
       border-bottom-right-radius: 20rpx;
@@ -292,7 +296,7 @@ const createOrder = () => {
         .icon {
           width: 60rpx;
           height: 60rpx;
-          background-color: #e8d262;
+          background-color: #d4e9ff;
           border-radius: 50%;
           display: flex;
           align-items: center;
@@ -303,6 +307,7 @@ const createOrder = () => {
           margin-top: 15rpx;
           font-size: 24rpx;
           transform: scale(0.8);
+          color: #fff;
         }
       }
       .next {
