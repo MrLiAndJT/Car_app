@@ -4,6 +4,7 @@ import type {
   PartnerStoreListIn,
   PartnerStoreListOut,
   UserOrderIn,
+  OrderListOut,
 } from "./main";
 
 class Main {
@@ -40,7 +41,7 @@ class Main {
   }
   // 获取订单列表
   static userOrderList() {
-    return request<any>({
+    return request<OrderListOut[]>({
       url: "/userOrder/list",
       method: "GET",
     });

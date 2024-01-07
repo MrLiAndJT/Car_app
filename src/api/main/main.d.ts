@@ -31,3 +31,14 @@ export type UserOrderIn = {
   requirements: string;
   agreeToTerms: 0 | 1 | [0 | 0];
 };
+
+export type OrderListOut = {
+  createdAt: string;
+  deletable: boolean;
+  id: number;
+  orderNumber: string;
+  orderStatus: string;
+  partnerStore: string;
+  requirements: string;
+  updatedAt: string;
+};

@@ -23,12 +23,14 @@
         <u-tabs :list="menuList" keyName="name" :scrollable="false" />
       </view>
     </u-sticky>
-    <OrderCard v-for="item in 5" :key="item" />
+    <OrderCard :dataList="orderList" />
   </view>
 </template>
 
 <script lang="ts" setup>
 import { ref, reactive } from "vue";
+import Main from "@/api/main";
+import type { OrderListOut } from "@/api/main/main";
 import OrderCard from "./components/OrderCard.vue";
 
 const searchValue = ref("");
@@ -47,6 +49,15 @@ const menuList = reactive([
     name: "已完成",
   },
 ]);
+
+const orderList = ref<OrderListOut[]>([]);
+
+const getOrderList = async () => {
+  const data = await Main.userOrderList();
+  orderList.value = data.data || [];
+};
+
+getOrderList();
 </script>
 
 <style lang="scss" scoped>
