@@ -21,18 +21,13 @@
             />
           </up-form-item>
           <up-form-item label="地址" borderBottom>
-            <view class="d-flex">
+            <view @click="selectLocation">
               <up-input
                 v-model="formData.carOwnerMultiLvAddr"
                 border="none"
                 placeholder="请选择地址"
-              />
-              <up-button
-                type="primary"
-                icon="map"
-                :customStyle="{ width: '80rpx' }"
-                :plain="true"
-                @click="selectLocation"
+                suffixIcon="map"
+                :readonly="true"
               />
             </view>
           </up-form-item>
@@ -43,12 +38,14 @@
               placeholder="请输入详情地址信息"
             />
           </up-form-item>
-          <up-button
-            type="primary"
-            text="查看附近门店"
-            :plain="true"
-            @click="getNearbyShop"
-          />
+          <view class="mt-20">
+            <up-button
+              type="primary"
+              text="查看附近门店"
+              :plain="true"
+              @click="getNearbyShop"
+            />
+          </view>
         </view>
         <view class="p-20 bg-white mt-20 border-radius-10">
           <view class="title-box">
@@ -158,6 +155,7 @@ function splitAddress(address: string) {
 }
 
 const selectLocation = () => {
+  console.log("选择地址...");
   uni.chooseLocation().then((res) => {
     const addressArr = splitAddress(res.address);
     formData.value.carOwnerMultiLvAddr = addressArr.join("-");
