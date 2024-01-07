@@ -131,7 +131,7 @@ const loginOut = () => {
   .user-container {
     position: relative;
     height: 270rpx;
-    background-color: $uni-color-primary;
+    background-color: #d4e9ff;
     margin-bottom: 100rpx;
     .user-info-wrap {
       display: flex;
