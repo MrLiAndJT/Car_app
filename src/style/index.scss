@@ -94,23 +94,23 @@ $max-space: 30; // 设置你需要的最大 space 值
   .p-#{$i} {
     padding: #{$i}rpx;
   }
-  .p-l-#{$i} {
+  .pl-#{$i} {
     padding-left: #{$i}rpx;
   }
-  .p-r-#{$i} {
+  .pr-#{$i} {
     padding-right: #{$i}rpx;
   }
-  .p-t-#{$i} {
+  .pt-#{$i} {
     padding-top: #{$i}rpx;
   }
-  .p-b-#{$i} {
+  .pb-#{$i} {
     padding-bottom: #{$i}rpx;
   }
-  .p-x-#{$i} {
+  .px-#{$i} {
     padding-left: #{$i}rpx;
     padding-right: #{$i}rpx;
   }
-  .p-y-#{$i} {
+  .py-#{$i} {
     padding-top: #{$i}rpx;
     padding-bottom: #{$i}rpx;
   }
@@ -118,23 +118,23 @@ $max-space: 30; // 设置你需要的最大 space 值
   .m-#{$i} {
     margin: #{$i}rpx;
   }
-  .m-l-#{$i} {
+  .ml-#{$i} {
     margin-left: #{$i}rpx;
   }
-  .m-r-#{$i} {
+  .mr-#{$i} {
     margin-right: #{$i}rpx;
   }
-  .m-t-#{$i} {
+  .mt-#{$i} {
     margin-top: #{$i}rpx;
   }
-  .m-b-#{$i} {
+  .mb-#{$i} {
     margin-bottom: #{$i}rpx;
   }
-  .m-x-#{$i} {
+  .mx-#{$i} {
     margin-left: #{$i}rpx;
     margin-right: #{$i}rpx;
   }
-  .m-y-#{$i} {
+  .my-#{$i} {
     margin-top: #{$i}rpx;
     margin-bottom: #{$i}rpx;
   }
