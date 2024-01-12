@@ -35,11 +35,15 @@
 <script lang="ts" setup>
 import { ref, reactive } from "vue";
 import OrderCard from "./components/OrderCard.vue";
+import { useLoginState } from "@/hooks/loginState";
 
 type MenuListType = {
   key: string;
   name: string;
 };
+
+const loginState = useLoginState();
+loginState.autoLogin();
 
 const searchValue = ref("");
 

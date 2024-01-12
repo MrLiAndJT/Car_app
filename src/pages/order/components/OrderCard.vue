@@ -88,6 +88,7 @@ import { reactive, ref } from "vue";
 import type { OrderListOut } from "@/api/main/main";
 import Main from "@/api/main";
 import { watch } from "vue";
+import { onShow } from "@dcloudio/uni-app";
 
 type PropsType = {
   type: string;
@@ -110,8 +111,10 @@ const getOrderList = async () => {
   uni.showLoading({
     title: "加载中...",
   });
-  const data = await Main.userOrderList();
-  orderList.value = data.data || [];
+  const data = await Main.userOrderList().catch((err) => {
+    console.log("错误: ", err);
+  });
+  orderList.value = data?.data || [];
   uni.hideLoading();
 };
 
@@ -140,7 +143,9 @@ const modalProps = reactive({
   },
 });
 
-getOrderList();
+onShow(() => {
+  getOrderList();
+});
 </script>
 
 <style lang="scss" scoped>
