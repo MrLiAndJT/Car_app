@@ -56,7 +56,6 @@
       >
         <u-cell :border="false" isLink title="我的评价" />
         <u-cell :border="false" isLink title="我的保修卡" />
-        <u-cell :border="false" isLink title="意见反馈" />
         <u-cell :border="false" isLink title="联系客服" />
         <u-cell :border="false" isLink :title="'关于' + APP_NAME" />
         <u-cell :border="false" isLink title="服务协议" />
