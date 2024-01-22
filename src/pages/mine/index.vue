@@ -56,7 +56,12 @@
       >
         <u-cell :border="false" isLink title="我的评价" />
         <u-cell :border="false" isLink title="我的保修卡" />
-        <u-cell :border="false" isLink title="联系客服" />
+        <u-cell
+          :border="false"
+          isLink
+          title="联系客服"
+          @click="contactService"
+        />
         <u-cell :border="false" isLink :title="'关于' + APP_NAME" />
         <u-cell :border="false" isLink title="服务协议" />
         <u-cell
@@ -106,6 +111,13 @@ const login = () => {
     // 已登陆，去到修改用户信息页面
     goPage("/pages/updateUserInfo/index");
   }
+};
+
+// 联系客服
+const contactService = () => {
+  uni.makePhoneCall({
+    phoneNumber: "13267672310",
+  });
 };
 
 // 退出登录
