@@ -25,11 +25,14 @@ const login = () => {
       return System.login({ code: res.code });
     })
     .then(({ data }) => {
+      userStore.changeToken(data.token);
+      return System.userProfileGet();
+    })
+    .then(({ data }) => {
       uni.showToast({
         title: "登录成功!",
       });
-      userStore.changeToken(data.token);
-      userStore.changeUsername("测试用户");
+      userStore.changeUserInfo(data);
       uni.navigateBack();
     })
     .catch((err) => {});

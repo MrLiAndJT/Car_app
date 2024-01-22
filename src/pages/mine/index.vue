@@ -3,12 +3,16 @@
     <view class="user-container">
       <view class="user-info-wrap" @click="login">
         <view class="con-left">
-          <up-avatar :size="42" bg-color="pink" linear="top" icon="account" />
+          <up-avatar
+            :size="42"
+            mode="aspectFit"
+            :src="userStore.$state.userInfo.avatarUrl"
+          />
         </view>
         <view class="con-right">
           <view class="user-name">
             <text class="name">
-              {{ userStore.$state.loginData.username || "登陆/注册" }}
+              {{ userStore.$state.userInfo.username || "登陆/注册" }}
             </text>
             <text class="iconfont icon-jinrujiantou"></text>
           </view>
