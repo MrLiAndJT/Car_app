@@ -12,7 +12,7 @@
             <text class="name">
               {{ appName }}
             </text>
-            <text class="intro">一站式汽车电子安装平台</text>
+            <text class="intro">一站式汽车升级安装平台</text>
           </view>
         </template>
       </u-navbar>
@@ -69,11 +69,11 @@
       </view>
       <view class="order-img-wrap" @click="createOrder">
         <view class="context-left">
-          <view class="title">我要派单</view>
+          <view class="title">我要安装</view>
           <up-button
             type="primary"
             :plain="true"
-            text="点击派单"
+            text="点击下单"
             :customStyle="{
               width: '150rpx',
               height: '60rpx',
