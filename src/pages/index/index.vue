@@ -42,7 +42,7 @@
     </view>
     <view class="content">
       <u-notice-bar :text="noticeList" direction="column" />
-      <view class="statistics-wrap">
+      <view class="statistics-wrap" v-if="false">
         <view class="item">
           <view class="tit">
             <text class="num">3.77</text>
@@ -67,7 +67,7 @@
           <view class="subtit">服务好评率</view>
         </view>
       </view>
-      <view class="order-img-wrap" @click="createOrder">
+      <view class="order-img-wrap mt-20" @click="createOrder">
         <view class="context-left">
           <view class="title">我要安装</view>
           <up-button
@@ -105,14 +105,14 @@
             <view class="icon">
               <text class="iconfont icon-gerentouxiang_o"></text>
             </view>
-            <view class="text">分配师傅</view>
+            <view class="text">匹配安装店</view>
           </view>
           <text class="next iconfont icon-xiayibu"></text>
           <view class="step-item">
             <view class="icon">
               <text class="iconfont icon-weixiu"></text>
             </view>
-            <view class="text">上门/到店服务</view>
+            <view class="text">预约到店安装</view>
           </view>
           <text class="next iconfont icon-xiayibu"></text>
           <view class="step-item">
@@ -130,7 +130,7 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import steering_wheel from "@/static/steering_wheel.png";
-import dispatch_order from "@/static/banner1.png";
+// import dispatch_order from "@/static/banner1.png";
 import { useUserStore } from "@/store/modules/user";
 
 // 用户 store
