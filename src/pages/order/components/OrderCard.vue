@@ -5,7 +5,7 @@
         <view class="bg-white p-20 border-radius-20">
           <view class="title-wrap">
             <text class="title-text">等待付款</text>
-            <view class="detail">
+            <view class="detail" @click="toDetail">
               <text class="text">详情</text>
               <u-icon name="arrow-right" color="#999" size="24rpx"></u-icon>
             </view>
@@ -142,6 +142,12 @@ const modalProps = reactive({
     // console.log("删除: ", data);
   },
 });
+
+const toDetail = () => {
+  uni.navigateTo({
+    url: "/pages/orderDetail/index",
+  });
+};
 
 onShow(() => {
   getOrderList();
