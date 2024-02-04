@@ -25,8 +25,11 @@
         />
         <view class="intro-box">
           <view class="content-left">
-            <text class="title">让安装 更简单</text>
-            <text class="subtitle">专业安装 安全保障</text>
+            <view class="title">安装无忧</view>
+            <view class="subtitle">
+              <view> 具备专业安装团队 </view>
+              <view> 提供优质的安装服务 </view>
+            </view>
           </view>
           <view class="img">
             <up-image
@@ -92,7 +95,7 @@
       </view>
 
       <view class="order-process-wrap">
-        <view class="tit">下单流程</view>
+        <view class="tit">安装流程</view>
         <view class="step-wrap">
           <view class="step-item">
             <view class="icon">
