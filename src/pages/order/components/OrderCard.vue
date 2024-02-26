@@ -5,7 +5,7 @@
         <view class="bg-white p-20 border-radius-20">
           <view class="title-wrap">
             <text class="title-text">等待付款</text>
-            <view class="detail" @click="toDetail">
+            <view class="detail" @click="toDetail(item.id)">
               <text class="text">详情</text>
               <u-icon name="arrow-right" color="#999" size="24rpx"></u-icon>
             </view>
@@ -143,9 +143,9 @@ const modalProps = reactive({
   },
 });
 
-const toDetail = () => {
+const toDetail = (id: number) => {
   uni.navigateTo({
-    url: "/pages/orderDetail/index",
+    url: `/pages/orderDetail/index?id=${id}`,
   });
 };
 

@@ -119,13 +119,19 @@ import Main from "@/api/main";
 import type { PartnerStoreListOut, UserOrderIn } from "@/api/main/main";
 import { useCarStore } from "@/store/modules/car";
 import StoreTable from "./components/StoreTable.vue";
+import { onLoad } from "@dcloudio/uni-app";
 
 const carStore = useCarStore();
-const dateStr = ref("");
 const citydate = ref([]);
-const showdate = ref(false);
-const showAgree = ref(false);
 const showStore = ref(false);
+
+// 订单id
+const orderId = ref(0);
+
+onLoad((data) => {
+  orderId.value = Number(data?.id) || 0;
+  getOrderDetail();
+});
 
 const formData = ref<UserOrderIn>({
   carOwnerName: "",
@@ -234,16 +240,35 @@ const confirm = async () => {
   }
   formData.value.carBrandId = carInfoId;
   formData.value.carSeriesId = carBrandInfoId;
-  const data = await Main.userOrder({
-    ...formData.value,
-    agreeToTerms: agreeToTerms ? 1 : 0,
-  });
+  if (orderId.value) {
+    // 调用修改订单接口
+    const data = await Main.userOrderPut({
+      ...formData.value,
+      agreeToTerms: agreeToTerms ? 1 : 0,
+    });
+  } else {
+    // 调用新增订单接口
+    const data = await Main.userOrder({
+      ...formData.value,
+      agreeToTerms: agreeToTerms ? 1 : 0,
+    });
+  }
+
   uni.showToast({
-    title: "发起订单成功!",
+    title: `${orderId.value ? "修改" : "发起"}订单成功!`,
   });
   uni.switchTab({
     url: "/pages/order/index",
   });
+};
+
+const getOrderDetail = async () => {
+  if (!orderId.value) return;
+  const { data } = await Main.userOrderGet(orderId.value);
+  formData.value = {
+    ...data,
+    agreeToTerms: [1],
+  };
 };
 
 // 初始化

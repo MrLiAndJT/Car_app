@@ -39,19 +39,21 @@ class Main {
       data,
     });
   }
-  // 获取订单列表
-  static userOrderList() {
-    return request<OrderListOut[]>({
-      url: "/userOrder/list",
+
+  // 获取用户订单详情
+  static userOrderGet(id: number) {
+    return request<UserOrderIn>({
+      url: `/userOrder/${id}`,
       method: "GET",
     });
   }
 
-  // 获取用户订单详情
-  static userOrderGet(id: number) {
-    return request<OrderListOut>({
-      url: `/userOrder/${id}`,
-      method: "GET",
+  // 更新用户订单详情
+  static userOrderPut(data: UserOrderIn) {
+    return request<number>({
+      url: `/userOrder${data?.id ? "/" + data.id : ""}`,
+      method: "PUT",
+      data,
     });
   }
 
@@ -60,6 +62,14 @@ class Main {
     return request<null>({
       url: `/userOrder/${id}`,
       method: "DELETE",
+    });
+  }
+
+  // 获取订单列表
+  static userOrderList() {
+    return request<OrderListOut[]>({
+      url: "/userOrder/list",
+      method: "GET",
     });
   }
 }

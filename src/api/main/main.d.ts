@@ -27,9 +27,15 @@ export type UserOrderIn = {
   carOwnerMultiLvAddr: string;
   carOwnerFullAddress: string;
   carBrandId: number;
+  carBrandName?: string;
   carSeriesId: number;
+  carSeriesName?: string;
   requirements: string;
-  agreeToTerms: 0 | 1 | [0 | 0];
+  agreeToTerms: 0 | 1 | [0 | 1];
+  id?: number;
+  updatedAt?: string;
+  orderNumber?: string;
+  orderStatus?: string;
 };
 
 export type OrderListOut = {
