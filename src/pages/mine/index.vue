@@ -22,7 +22,7 @@
           </view>
         </view>
       </view>
-      <view class="wallet">
+      <!-- <view class="wallet">
         <view class="con-left">
           <text class="text">账户余额</text>
           <text class="util">¥</text>
@@ -42,7 +42,7 @@
             查看明细
           </up-button>
         </view>
-      </view>
+      </view> -->
     </view>
 
     <view class="p-20">
@@ -55,7 +55,6 @@
         }"
       >
         <u-cell :border="false" isLink title="我的评价" />
-        <u-cell :border="false" isLink title="我的保修卡" />
         <u-cell
           :border="false"
           isLink
@@ -64,12 +63,6 @@
         />
         <u-cell :border="false" isLink :title="'关于' + APP_NAME" />
         <u-cell :border="false" isLink title="服务协议" />
-        <u-cell
-          :border="false"
-          isLink
-          title="我是师傅"
-          rightText="查看入驻信息"
-        />
       </u-cell-group>
     </view>
 
@@ -145,9 +138,10 @@ const loginOut = () => {
   background-color: #f4f4f4;
   .user-container {
     position: relative;
-    height: 270rpx;
+    // height: 270rpx;
+    height: 200rpx;
     background-color: #d4e9ff;
-    margin-bottom: 100rpx;
+    // margin-bottom: 100rpx;
     .user-info-wrap {
       display: flex;
       align-items: center;
