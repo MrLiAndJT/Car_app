@@ -268,6 +268,8 @@ const getOrderDetail = async () => {
   formData.value = {
     ...data,
     agreeToTerms: [1],
+    carOwnerLongitude: 0,
+    carOwnerLatitude: 0,
   };
 };
 
