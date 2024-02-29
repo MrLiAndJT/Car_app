@@ -61,7 +61,12 @@
           title="联系客服"
           @click="contactService"
         />
-        <u-cell :border="false" isLink :title="'关于' + APP_NAME" />
+        <u-cell
+          :border="false"
+          isLink
+          :title="'关于' + APP_NAME"
+          @click="goPage('/pages/aboutUs/index')"
+        />
         <u-cell
           :border="false"
           isLink

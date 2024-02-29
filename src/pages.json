@@ -86,6 +86,13 @@
         "navigationBarTitleText": "服务协议",
         "enablePullDownRefresh": false
       }
+    },
+    {
+      "path": "pages/aboutUs/index",
+      "style": {
+        "navigationBarTitleText": "关于车壹壹",
+        "enablePullDownRefresh": false
+      }
     }
   ],
   "globalStyle": {
