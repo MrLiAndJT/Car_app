@@ -62,7 +62,12 @@
           @click="contactService"
         />
         <u-cell :border="false" isLink :title="'关于' + APP_NAME" />
-        <u-cell :border="false" isLink title="服务协议" />
+        <u-cell
+          :border="false"
+          isLink
+          title="服务协议"
+          @click="goPage('/pages/serviceAgreement/index')"
+        />
       </u-cell-group>
     </view>
 

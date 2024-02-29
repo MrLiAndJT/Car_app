@@ -79,6 +79,13 @@
         "navigationBarTitleText": "订单详情",
         "enablePullDownRefresh": false
       }
+    },
+    {
+      "path": "pages/serviceAgreement/index",
+      "style": {
+        "navigationBarTitleText": "服务协议",
+        "enablePullDownRefresh": false
+      }
     }
   ],
   "globalStyle": {

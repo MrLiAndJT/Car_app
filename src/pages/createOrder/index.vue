@@ -93,6 +93,7 @@
                 :block="true"
                 text="《合作协议》"
                 type="primary"
+                @click="navTo('/pages/serviceAgreement/index')"
               />
             </view>
           </up-form-item>
