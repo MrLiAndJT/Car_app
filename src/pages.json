@@ -93,6 +93,13 @@
         "navigationBarTitleText": "关于车壹壹",
         "enablePullDownRefresh": false
       }
+    },
+    {
+      "path": "pages/review/index",
+      "style": {
+        "navigationBarTitleText": "我的评价",
+        "enablePullDownRefresh": false
+      }
     }
   ],
   "globalStyle": {

@@ -54,7 +54,12 @@
           overflow: 'hidden',
         }"
       >
-        <u-cell :border="false" isLink title="我的评价" />
+        <u-cell
+          :border="false"
+          isLink
+          title="我的评价"
+          @click="goPage('/pages/review/index')"
+        />
         <u-cell
           :border="false"
           isLink
