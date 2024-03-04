@@ -95,7 +95,7 @@
       }
     },
     {
-      "path": "pages/review/index",
+      "path": "pages/reviewHistory/index",
       "style": {
         "navigationBarTitleText": "我的评价",
         "enablePullDownRefresh": false

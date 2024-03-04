@@ -58,7 +58,7 @@
           :border="false"
           isLink
           title="我的评价"
-          @click="goPage('/pages/review/index')"
+          @click="goPage('/pages/reviewHistory/index')"
         />
         <u-cell
           :border="false"
