@@ -100,6 +100,13 @@
         "navigationBarTitleText": "我的评价",
         "enablePullDownRefresh": false
       }
+    },
+    {
+      "path": "pages/review/index",
+      "style": {
+        "navigationBarTitleText": "评价",
+        "enablePullDownRefresh": false
+      }
     }
   ],
   "globalStyle": {
