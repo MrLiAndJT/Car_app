@@ -1,6 +1,6 @@
 <template>
   <view class="list">
-    <template v-if="props.type === 'pedding'">
+    <template v-if="orderList.length !== 0">
       <view class="p-20" v-for="item in orderList" :key="item.id">
         <view class="bg-white p-20 border-radius-20">
           <view class="title-wrap">
