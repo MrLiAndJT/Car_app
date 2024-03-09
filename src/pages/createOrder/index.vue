@@ -69,6 +69,49 @@
             {{ carStore.$state.carBrandInfo?.label || "请添加车辆" }}
           </text>
         </view>
+
+        <view class="p-20 bg-white mt-20 border-radius-10">
+          <view class="title-box">
+            <text class="title-text">安装产品</text>
+            <up-button
+              type="primary"
+              size="mini"
+              :customStyle="{
+                width: '150rpx',
+                margin: 0,
+                fontSize: '28rpx',
+                height: '65rpx',
+              }"
+              @click="selectProduct"
+            >
+              选择产品
+            </up-button>
+          </view>
+          <view class="pro-list">
+            <view class="null" v-if="false">
+              {{ carStore.$state.carBrandInfo?.label || "请选择产品" }}
+            </view>
+            <template v-else>
+              <view class="pro-item">
+                <text class="pro-name">360倒车影像</text>
+                <view class="pro-btn">
+                  <up-button type="error" size="mini" style="width: 100rpx">
+                    删除
+                  </up-button>
+                </view>
+              </view>
+              <view class="pro-item">
+                <text class="pro-name">一键启动</text>
+                <view class="pro-btn">
+                  <up-button type="error" size="mini" style="width: 100rpx">
+                    删除
+                  </up-button>
+                </view>
+              </view>
+            </template>
+          </view>
+        </view>
+
         <view class="p-20 bg-white mt-20 border-radius-10">
           <view class="title-box">
             <text class="title-text">其它信息</text>
@@ -196,8 +239,6 @@ const showErrorText = (text: string) => {
 };
 
 const confirm = async () => {
-  console.log("发布订单..");
-  console.log("agreeToTerms: ", formData.value.agreeToTerms);
   const carInfoId = carStore.$state.carInfo?.id;
   const carBrandInfoId = carStore.$state.carBrandInfo?.id;
   let agreeToTerms = 0;
@@ -274,6 +315,15 @@ const getOrderDetail = async () => {
   };
 };
 
+const selectProduct = () => {
+  const carInfoId = carStore.$state.carInfo?.id;
+  const carBrandInfoId = carStore.$state.carBrandInfo?.id;
+  if (!carInfoId || !carBrandInfoId) {
+    showErrorText("请先选择汽车");
+    return;
+  }
+};
+
 // 初始化
 const init = () => {
   // 把之前选的车辆信息清空
@@ -307,6 +357,24 @@ init();
     justify-content: center;
     color: #999;
     padding: 20rpx 0;
+  }
+  .pro-list {
+    .null {
+      @extend .car-info-text;
+    }
+    .pro-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex: 1;
+      margin-top: 20rpx;
+      .pro-name {
+        color: #333;
+      }
+      .pro-btn {
+        width: 100rpx;
+      }
+    }
   }
   .price-container {
     z-index: 999;
