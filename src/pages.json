@@ -15,13 +15,13 @@
         "navigationStyle": "custom"
       }
     },
-    {
-      "path": "pages/message/index",
-      "style": {
-        "navigationBarTitleText": "消息",
-        "enablePullDownRefresh": false
-      }
-    },
+    // {
+    //   "path": "pages/message/index",
+    //   "style": {
+    //     "navigationBarTitleText": "消息",
+    //     "enablePullDownRefresh": false
+    //   }
+    // },
     {
       "path": "pages/order/index",
       "style": {
@@ -128,12 +128,12 @@
         "iconPath": "static/tabBar/home.png",
         "selectedIconPath": "static/tabBar/home_active.png"
       },
-      {
-        "pagePath": "pages/message/index",
-        "text": "消息",
-        "iconPath": "static/tabBar/message.png",
-        "selectedIconPath": "static/tabBar/message_active.png"
-      },
+      // {
+      //   "pagePath": "pages/message/index",
+      //   "text": "消息",
+      //   "iconPath": "static/tabBar/message.png",
+      //   "selectedIconPath": "static/tabBar/message_active.png"
+      // },
       {
         "pagePath": "pages/order/index",
         "text": "订单",
