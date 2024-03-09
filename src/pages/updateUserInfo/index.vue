@@ -40,10 +40,12 @@ const formData = ref<userProfileInfo>({
 });
 
 const chooseavatar = (res: { detail: { avatarUrl: string } }) => {
+  console.log("获取名字: ", res);
   formData.value.avatarUrl = res.detail.avatarUrl;
 };
 
 const confirm = () => {
+  console.log("获取: ", formData.value);
   System.userProfilePut(formData.value).then((res) => {
     if (res.httpCode === 200) {
       userStore.$patch((state) => {
