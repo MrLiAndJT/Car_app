@@ -5,6 +5,7 @@ import type {
   PartnerStoreListOut,
   UserOrderIn,
   OrderListOut,
+  CarReplacementListOut,
 } from "./main";
 
 class Main {
@@ -69,6 +70,14 @@ class Main {
   static userOrderList() {
     return request<OrderListOut[]>({
       url: "/userOrder/list",
+      method: "GET",
+    });
+  }
+
+  // 获取配件列表
+  static carReplacementList(carSeriesId: number) {
+    return request<CarReplacementListOut>({
+      url: `/carReplacement/list?carSeriesId=${carSeriesId}`,
       method: "GET",
     });
   }

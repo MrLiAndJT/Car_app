@@ -148,6 +148,16 @@
       <view class="con-left"> 预估服务费: 等待店家报价中... </view>
       <view class="submit" @click="confirm">发布订单</view>
     </view>
+    <u-picker
+      :show="showProSelect"
+      ref="pickerRef"
+      :columns="columns"
+      keyName="title"
+      :loading="proIsListLoading"
+      @confirm="confirmPro"
+      @change="changeHandler"
+      @cancel="pickerCancel"
+    ></u-picker>
     <StoreTable
       v-if="showStore"
       v-model:show="showStore"
@@ -158,12 +168,13 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, watch } from "vue";
+import { computed, reactive, ref, watch } from "vue";
 import Main from "@/api/main";
 import type { PartnerStoreListOut, UserOrderIn } from "@/api/main/main";
 import { useCarStore } from "@/store/modules/car";
 import StoreTable from "./components/StoreTable.vue";
 import { onLoad } from "@dcloudio/uni-app";
+import { useProductHook } from "./hooks/useProduct.hook";
 
 const carStore = useCarStore();
 const citydate = ref([]);
@@ -194,6 +205,25 @@ watch(citydate, (nVal) => {
   formData.value.carOwnerMultiLvAddr = nVal.join("-");
   formData.value.carOwnerFullAddress = "";
 });
+
+const carInfoId = computed(() => {
+  return carStore.$state.carInfo?.id || 0;
+});
+
+const carBrandInfoId = computed(() => {
+  return carStore.$state.carBrandInfo?.id || 0;
+});
+
+const {
+  showProSelect,
+  proIsListLoading,
+  getProductList,
+  pickerCancel,
+  columns,
+  changeHandler,
+  confirmPro,
+  pickerRef,
+} = useProductHook(carBrandInfoId.value);
 
 const navTo = (url: string) => {
   uni.navigateTo({
@@ -239,8 +269,6 @@ const showErrorText = (text: string) => {
 };
 
 const confirm = async () => {
-  const carInfoId = carStore.$state.carInfo?.id;
-  const carBrandInfoId = carStore.$state.carBrandInfo?.id;
   let agreeToTerms = 0;
   if (Array.isArray(formData.value.agreeToTerms)) {
     agreeToTerms = formData.value.agreeToTerms[0] || 0;
@@ -276,12 +304,12 @@ const confirm = async () => {
     return;
   }
 
-  if (!carInfoId || !carBrandInfoId) {
+  if (!carInfoId.value || !carBrandInfoId.value) {
     showErrorText("请先选择汽车");
     return;
   }
-  formData.value.carBrandId = carInfoId;
-  formData.value.carSeriesId = carBrandInfoId;
+  formData.value.carBrandId = carInfoId.value;
+  formData.value.carSeriesId = carBrandInfoId.value;
   if (orderId.value) {
     // 调用修改订单接口
     const data = await Main.userOrderPut({
@@ -316,12 +344,12 @@ const getOrderDetail = async () => {
 };
 
 const selectProduct = () => {
-  const carInfoId = carStore.$state.carInfo?.id;
-  const carBrandInfoId = carStore.$state.carBrandInfo?.id;
-  if (!carInfoId || !carBrandInfoId) {
+  if (!carInfoId.value || !carBrandInfoId.value) {
     showErrorText("请先选择汽车");
     return;
   }
+  getProductList();
+  showProSelect.value = true;
 };
 
 // 初始化

@@ -115,9 +115,7 @@
     "navigationBarBackgroundColor": "#FFFFFF",
     "backgroundColor": "#FFFFFF"
   },
-  "condition": {
-    "current": 0
-  },
+
   "tabBar": {
     "color": "#999",
     "selectedColor": "#000",
@@ -145,6 +143,15 @@
         "text": "我的",
         "iconPath": "static/tabBar/mine.png",
         "selectedIconPath": "static/tabBar/mine_active.png"
+      }
+    ]
+  },
+  "condition": {
+    "current": 0,
+    "list": [
+      {
+        "name": "下单",
+        "paht": "/pages/createOrder/index"
       }
     ]
   }

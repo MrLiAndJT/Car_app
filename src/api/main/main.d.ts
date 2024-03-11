@@ -48,3 +48,12 @@ export type OrderListOut = {
   requirements: string;
   updatedAt: string;
 };
+
+export type CarReplacementListOut = {
+  id: number;
+  title: string;
+  estF32Price: number;
+  estU64Price: number;
+  counter: number;
+  children?: CarReplacementListOut[];
+};
