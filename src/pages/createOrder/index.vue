@@ -82,7 +82,7 @@
                 fontSize: '28rpx',
                 height: '65rpx',
               }"
-              @click="selectProduct"
+              @click="navTo('/pages/selectProduct/index')"
             >
               选择产品
             </up-button>
@@ -148,16 +148,6 @@
       <view class="con-left"> 预估服务费: 等待店家报价中... </view>
       <view class="submit" @click="confirm">发布订单</view>
     </view>
-    <u-picker
-      :show="showProSelect"
-      ref="pickerRef"
-      :columns="columns"
-      keyName="title"
-      :loading="proIsListLoading"
-      @confirm="confirmPro"
-      @change="changeHandler"
-      @cancel="pickerCancel"
-    ></u-picker>
     <StoreTable
       v-if="showStore"
       v-model:show="showStore"
@@ -168,13 +158,12 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, reactive, ref, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import Main from "@/api/main";
 import type { PartnerStoreListOut, UserOrderIn } from "@/api/main/main";
 import { useCarStore } from "@/store/modules/car";
 import StoreTable from "./components/StoreTable.vue";
-import { onLoad } from "@dcloudio/uni-app";
-import { useProductHook } from "./hooks/useProduct.hook";
+import { onLoad, onShow } from "@dcloudio/uni-app";
 
 const carStore = useCarStore();
 const citydate = ref([]);
@@ -186,6 +175,14 @@ const orderId = ref(0);
 onLoad((data) => {
   orderId.value = Number(data?.id) || 0;
   getOrderDetail();
+});
+
+onShow(() => {
+  // console.log("show...");
+  uni.$once("select_product", (data) => {
+    console.log("data: ", data);
+    uni.$off("select_product");
+  });
 });
 
 const formData = ref<UserOrderIn>({
@@ -213,17 +210,6 @@ const carInfoId = computed(() => {
 const carBrandInfoId = computed(() => {
   return carStore.$state.carBrandInfo?.id || 0;
 });
-
-const {
-  showProSelect,
-  proIsListLoading,
-  getProductList,
-  pickerCancel,
-  columns,
-  changeHandler,
-  confirmPro,
-  pickerRef,
-} = useProductHook(carBrandInfoId.value);
 
 const navTo = (url: string) => {
   uni.navigateTo({
@@ -348,8 +334,6 @@ const selectProduct = () => {
     showErrorText("请先选择汽车");
     return;
   }
-  getProductList();
-  showProSelect.value = true;
 };
 
 // 初始化

@@ -39,6 +39,21 @@ page {
   width: 100%;
 }
 
+.overflow {
+  &-hidden {
+    overflow: hidden;
+  }
+  &-auto {
+    overflow: auto;
+  }
+}
+
+.box-sizing {
+  &-border-box {
+    box-sizing: border-box;
+  }
+}
+
 .d {
   &-flex {
     display: flex;
