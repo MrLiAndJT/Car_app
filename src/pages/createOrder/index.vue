@@ -350,6 +350,8 @@ const getOrderDetail = async () => {
     carOwnerLongitude: 0,
     carOwnerLatitude: 0,
   };
+  // 获取价格
+  getPrice();
 };
 
 const selectProduct = () => {
