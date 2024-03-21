@@ -60,3 +60,13 @@ export type OrderListOut = {
   requirements: string;
   updatedAt: string;
 };
+
+export type carReplacementComputePriceIn = {
+  carSeriesId: number;
+  carReplacementIds: number[];
+};
+
+export type carReplacementComputePriceOut = {
+  intPrice: number;
+  floatPrice: number;
+};

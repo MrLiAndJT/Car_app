@@ -6,6 +6,8 @@ import type {
   UserOrderIn,
   OrderListOut,
   CarReplacementListOut,
+  carReplacementComputePriceIn,
+  carReplacementComputePriceOut,
 } from "./main";
 
 class Main {
@@ -79,6 +81,15 @@ class Main {
     return request<CarReplacementListOut[]>({
       url: `/carReplacement/list?carSeriesId=${carSeriesId}&carReplacementId=${carReplacementId}`,
       method: "GET",
+    });
+  }
+
+  // 获取零件列表服务价格
+  static carReplacementComputePrice(data: carReplacementComputePriceIn) {
+    return request<carReplacementComputePriceOut>({
+      url: "/carReplacement/computePrice",
+      method: "POST",
+      data,
     });
   }
 }

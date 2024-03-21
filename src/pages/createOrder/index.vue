@@ -146,7 +146,7 @@
     </view>
 
     <view class="price-container">
-      <view class="con-left"> 预估服务费: 等待店家报价中... </view>
+      <view class="con-left"> 预估服务费: ¥ {{ price }} </view>
       <view class="submit" @click="confirm">发布订单</view>
     </view>
     <StoreTable
@@ -173,6 +173,8 @@ const showStore = ref(false);
 
 // 订单id
 const orderId = ref(0);
+
+const price = ref(0);
 
 onLoad((data) => {
   orderId.value = Number(data?.id) || 0;
@@ -214,6 +216,7 @@ onShow(() => {
     }
     formData.value.carReplacements.push(data);
     uni.$off("select_product");
+    getPrice();
   });
 });
 
@@ -354,6 +357,17 @@ const selectProduct = () => {
 // 删除产品
 const delProduct = (index: number) => {
   formData.value.carReplacements.splice(index, 1);
+};
+
+// 获取价格
+const getPrice = () => {
+  if (!carBrandInfoId.value || !formData.value.carReplacements.length) return;
+  Main.carReplacementComputePrice({
+    carSeriesId: carBrandInfoId.value,
+    carReplacementIds: formData.value.carReplacements.map((item) => item.id),
+  }).then((res) => {
+    price.value = res.data.floatPrice;
+  });
 };
 
 // 初始化
