@@ -19,6 +19,17 @@ export type PartnerStoreListOut = {
   unit: string;
 };
 
+// 获取配件列表出参
+export type CarReplacementListOut = {
+  id: number;
+  title: string;
+  estF32Price: number;
+  estU64Price: number;
+  counter: number;
+  children?: CarReplacementListOut[];
+};
+
+// 创建订单
 export type UserOrderIn = {
   carOwnerName: string;
   carOwnerPhoneNumber: string;
@@ -32,6 +43,7 @@ export type UserOrderIn = {
   carSeriesName?: string;
   requirements: string;
   agreeToTerms: 0 | 1 | [0 | 1];
+  carReplacements: CarReplacementListOut[];
   id?: number;
   updatedAt?: string;
   orderNumber?: string;
@@ -47,13 +59,4 @@ export type OrderListOut = {
   partnerStore: string;
   requirements: string;
   updatedAt: string;
-};
-
-export type CarReplacementListOut = {
-  id: number;
-  title: string;
-  estF32Price: number;
-  estU64Price: number;
-  counter: number;
-  children?: CarReplacementListOut[];
 };

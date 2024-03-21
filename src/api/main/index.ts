@@ -75,9 +75,9 @@ class Main {
   }
 
   // 获取配件列表
-  static carReplacementList(carSeriesId: number) {
-    return request<CarReplacementListOut>({
-      url: `/carReplacement/list?carSeriesId=${carSeriesId}`,
+  static carReplacementList(carSeriesId: number, carReplacementId: number) {
+    return request<CarReplacementListOut[]>({
+      url: `/carReplacement/list?carSeriesId=${carSeriesId}&carReplacementId=${carReplacementId}`,
       method: "GET",
     });
   }

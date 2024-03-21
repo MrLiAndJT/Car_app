@@ -82,28 +82,29 @@
                 fontSize: '28rpx',
                 height: '65rpx',
               }"
-              @click="navTo('/pages/selectProduct/index')"
+              @click="selectProduct"
             >
               选择产品
             </up-button>
           </view>
           <view class="pro-list">
-            <view class="null" v-if="false">
-              {{ carStore.$state.carBrandInfo?.label || "请选择产品" }}
+            <view class="null" v-if="formData.carReplacements.length === 0">
+              请选择产品
             </view>
             <template v-else>
-              <view class="pro-item">
-                <text class="pro-name">360倒车影像</text>
+              <view
+                class="pro-item"
+                v-for="(item, index) in formData.carReplacements"
+                :key="item.id"
+              >
+                <text class="pro-name">{{ item.title }}</text>
                 <view class="pro-btn">
-                  <up-button type="error" size="mini" style="width: 100rpx">
-                    删除
-                  </up-button>
-                </view>
-              </view>
-              <view class="pro-item">
-                <text class="pro-name">一键启动</text>
-                <view class="pro-btn">
-                  <up-button type="error" size="mini" style="width: 100rpx">
+                  <up-button
+                    type="error"
+                    size="mini"
+                    style="width: 100rpx"
+                    @click="delProduct(index)"
+                  >
                     删除
                   </up-button>
                 </view>
@@ -164,6 +165,7 @@ import type { PartnerStoreListOut, UserOrderIn } from "@/api/main/main";
 import { useCarStore } from "@/store/modules/car";
 import StoreTable from "./components/StoreTable.vue";
 import { onLoad, onShow } from "@dcloudio/uni-app";
+import type { CarReplacementListOut } from "@/api/main/main.d";
 
 const carStore = useCarStore();
 const citydate = ref([]);
@@ -177,14 +179,6 @@ onLoad((data) => {
   getOrderDetail();
 });
 
-onShow(() => {
-  // console.log("show...");
-  uni.$once("select_product", (data) => {
-    console.log("data: ", data);
-    uni.$off("select_product");
-  });
-});
-
 const formData = ref<UserOrderIn>({
   carOwnerName: "",
   carOwnerPhoneNumber: "",
@@ -196,11 +190,31 @@ const formData = ref<UserOrderIn>({
   carSeriesId: 0,
   carOwnerLongitude: 0,
   carOwnerLatitude: 0,
+  carReplacements: [],
 });
 
 watch(citydate, (nVal) => {
   formData.value.carOwnerMultiLvAddr = nVal.join("-");
   formData.value.carOwnerFullAddress = "";
+});
+
+onShow(() => {
+  uni.$once("select_product", (data: CarReplacementListOut) => {
+    if (!data) return;
+    if (!Array.isArray(formData.value.carReplacements)) {
+      formData.value.carReplacements = [];
+    }
+    if (
+      formData.value.carReplacements.map((item) => item.id)?.includes(data.id)
+    ) {
+      uni.showToast({
+        title: `请勿重复选择`,
+      });
+      return;
+    }
+    formData.value.carReplacements.push(data);
+    uni.$off("select_product");
+  });
 });
 
 const carInfoId = computed(() => {
@@ -334,6 +348,12 @@ const selectProduct = () => {
     showErrorText("请先选择汽车");
     return;
   }
+  navTo("/pages/selectProduct/index");
+};
+
+// 删除产品
+const delProduct = (index: number) => {
+  formData.value.carReplacements.splice(index, 1);
 };
 
 // 初始化
