@@ -311,6 +311,12 @@ const confirm = async () => {
     showErrorText("请先选择汽车");
     return;
   }
+
+  if (!formData.value.carReplacements.length) {
+    showErrorText("请选择产品");
+    return;
+  }
+
   formData.value.carBrandId = carInfoId.value;
   formData.value.carSeriesId = carBrandInfoId.value;
   if (orderId.value) {
